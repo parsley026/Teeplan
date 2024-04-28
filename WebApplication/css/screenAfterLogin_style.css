@@ -79,7 +79,38 @@ body{
     font-size: 3.5vh;
     text-align: center;
 }
+/*coupon panel */
 
+#couponPanel{
+    position: relative;
+    height: 5%;
+    width: 100%;
+    display: flex;
+}
+#couponPanel:hover{
+    cursor: pointer;
+}
+#couponPanel_icon{
+    width: 6vh;
+    background-image: url("/WebApplication/res/loyaltyCardIcon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#couponPanel:hover #couponPanel_icon{
+    background-image: url("/WebApplication/res/loyaltyCardIconWhite.png");
+}
+#couponPanel:hover #couponPanel_text{
+    color: white;
+}
+#couponPanel_text{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #DDF9C1;
+    font-size: 3.5vh;
+    text-align: center;
+}
 
 #middlePanel{
     background-color:#474A44;
@@ -90,11 +121,42 @@ body{
     height: 100%;
 }
 
-
 #rightPannel{
-position:fixed;
-top:0;
-left: 85%;
-width: 15%;
-height: 100%;
+    position:fixed;
+    top:0;
+    left: 85%;
+    width: 15%;
+    height: 100%;
 }
+
+#logoutPanel{
+    position: relative;
+    height: 5%;
+    width: 100%;
+    display: flex;
+}
+#leftPadding{
+    width: 30%;
+    display: flex;
+}
+#logoutPanel_text{
+    width: auto;
+    display: flex;
+    align-items: center;
+    color: #DDF9C1;
+    font-size: 3.5vh;
+    text-align: center;
+}
+#logoutPanel_icon{
+    background-image: url("/WebApplication/res/logoutIcon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: flex;
+    width:15%;
+}
+#logoutPanel_icon:hover{
+    cursor: pointer;
+}
+
+
