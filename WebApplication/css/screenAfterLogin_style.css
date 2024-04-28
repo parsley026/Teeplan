@@ -14,9 +14,72 @@ body{
 #leftPanel{ 
     position:fixed;
     top:0;
+    left: 0;
     width: 15%;
     height: 100%;
 }
+#userPanel{
+    position: relative;
+    height: 5%;
+    width: 100%;
+    display: flex;
+}
+#userPanel:hover{
+    cursor: pointer;
+}
+#userPanel_icon{
+    width: 6vh;
+    background-image: url("/WebApplication/res/personIcon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#userPanel:hover #userPanel_icon{
+    background-image: url("/WebApplication/res/personIconWhite.png");
+}
+#userPanel:hover #userPanel_text{
+    color: white;
+}
+#userPanel_text{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #DDF9C1;
+    font-size: 3.5vh;
+    text-align: center;
+}
+/* Events panel*/
+#eventPanel{
+    position: relative;
+    height: 5%;
+    width: 100%;
+    display: flex;
+}
+#eventPanel:hover{
+    cursor: pointer;
+}
+#eventPanel_icon{
+    width: 6vh;
+    background-image: url("/WebApplication/res/bookmarkIcon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#eventPanel:hover #eventPanel_icon{
+    background-image: url("/WebApplication/res/bookmarkIconWhite.png");
+}
+#eventPanel:hover #eventPanel_text{
+    color: white;
+}
+#eventPanel_text{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #DDF9C1;
+    font-size: 3.5vh;
+    text-align: center;
+}
+
 
 #middlePanel{
     background-color:#474A44;
@@ -26,6 +89,7 @@ body{
     width: 70%;
     height: 100%;
 }
+
 
 #rightPannel{
 position:fixed;
