@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'interregular';
+    src: url('/WebApplication/res/inter-variablefont_slntwght-webfont.woff2') format('woff2'),
+         url('/WebApplication/res/inter-variablefont_slntwght-webfont.woff') format('woff');
+    font-weight:lighter;
+    font-style:normal;
+}
+
+body{
+    background-color:#363636 ;
+    font-family: 'interregular';
+    display: flex;
+}
+#leftPanel{ 
+    position:fixed;
+    top:0;
+    width: 15%;
+    height: 100%;
+}
+
+#middlePanel{
+    background-color:#474A44;
+    position:fixed;
+    top:0;
+    left:15%; 
+    width: 70%;
+    height: 100%;
+}
+
+#rightPannel{
+position:fixed;
+top:0;
+left: 85%;
+width: 15%;
+height: 100%;
+}

@@ -8,7 +8,7 @@ function checkCredentials() {
         //Dodać walidacje z bazą danych
 
      if (email === "123" && password === "123") {
-        window.location.href = "/src/test.html"; //można zmienić na kolejną stronę
+        window.location.href = "/WebApplication/screenAfterLogin.html"; //można zmienić na kolejną stronę
     } else {
         alert("Nieprawidłowy email lub hasło. Spróbuj ponownie.");
     }
