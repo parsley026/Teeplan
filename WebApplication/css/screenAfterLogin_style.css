@@ -18,6 +18,72 @@ body{
     width: 15%;
     height: 100%;
 }
+
+#section_panel{
+    position: relative;
+    top: 5%;
+    left: 45%;
+    width: 10%;
+    height: 8%;
+    color: #DDF9C1;
+    display: flex;
+}
+#option_search{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#option_search:hover{
+    cursor:pointer;
+    color: white;
+}
+#option_search:hover #search_icon{
+    background-image: url(/WebApplication/res/SearchIcon_white.png);
+}
+#search_icon{
+    align-self: center;
+    background-image: url(/WebApplication/res/SearchIcon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50%;
+    width: 100%;
+}
+#search_text{
+    justify-content: center;
+    text-align: center;
+    height: 30%;
+    width: 100%;
+    bottom: 0;
+}
+#option_add{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#option_add:hover{
+    cursor:pointer;
+    color: white;
+}
+#option_add:hover #add_icon{
+    background-image: url(/WebApplication/res/AddIcon_white.png);
+}
+#add_icon{
+    align-self: center;
+    background-image: url(/WebApplication/res/AddIcon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50%;
+    width: 100%;
+}
+#add_text{
+    justify-content: center;
+    text-align: center;
+    height: 30%;
+    width: 100%;
+    bottom: 0;
+}
 #userPanel{
     position: relative;
     height: 5%;
