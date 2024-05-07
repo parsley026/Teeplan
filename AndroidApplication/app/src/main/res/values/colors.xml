@@ -5,4 +5,5 @@
     <color name="colorGreenDarker">#DDF9C1</color>
     <color name="colorGreenLighter">#C1DBB3</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteHint">#9AFFFFFF</color>
 </resources>
