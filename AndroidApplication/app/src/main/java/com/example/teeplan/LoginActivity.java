@@ -1,6 +1,9 @@
 package com.example.teeplan;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivity extends AppCompatActivity {
+    Button buttonSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +24,19 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        buttonSignup = findViewById(R.id.buttonSignup);
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                swapToSignUpActivity();
+            }
+        });
+    }
+
+    public void swapToSignUpActivity() {
+        Intent intent = new Intent(this, SignupActivity.class);
+        startActivity(intent);
     }
 }
