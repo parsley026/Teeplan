@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="AppEntryTextStyle">
         <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -6,6 +7,7 @@
         <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">26sp</item>
     </style>
+
     <style name="AppButtonStyle">
         <item name="android:fontFamily">@font/inter_semi_bold</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
