@@ -24,35 +24,70 @@
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
+        style="@style/AppEntryTextStyle"
         android:layout_width="330dp"
         android:layout_height="60dp"
+        android:backgroundTint="@color/colorWhiteHint"
         android:ems="10"
         android:hint="e-mail"
         android:inputType="textEmailAddress"
-        style = "@style/AppEntryTextStyle"
-        android:backgroundTint="@color/colorWhiteHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628" />
+        app:layout_constraintVertical_bias="0.597" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
+        style="@style/AppEntryTextStyle"
         android:layout_width="330dp"
         android:layout_height="60dp"
+        android:backgroundTint="@color/colorWhiteHint"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
-        style="@style/AppEntryTextStyle"
-        android:backgroundTint="@color/colorWhiteHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
+        app:layout_constraintVertical_bias="0.704" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        style="@style/AppButtonStyle"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:text="log in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.828" />
+
+    <Button
+        android:id="@+id/buttonSignup"
+        style="@style/AppButtonStyle"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:text="sign up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.931" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="@color/colorWhiteHint"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
