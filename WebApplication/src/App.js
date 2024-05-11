@@ -1,5 +1,6 @@
 import './App.css';
 import './After_login.css';
+import './Add_coupon.css';
 import React, { useState } from 'react';
 
 
@@ -12,7 +13,13 @@ function App() {
       name: '',
       description: '',
       code: ''
-  });
+    });
+
+    const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setCouponForm({ ...couponForm, [name]: value });
+    };
+  
 
     const handleEmailChange = (event) => {
       setEmail(event.target.value);
@@ -23,23 +30,39 @@ function App() {
     };
     
   const handleSubmit = (event) => {
+    couponForm.name=null;
+    couponForm.description=null;
+    couponForm.code=null;
     event.preventDefault();
     // Tutaj możesz obsłużyć wysłanie danych formularza, np. wysłać żądanie do serwera
     // i dodać kupon do bazy danych. Na potrzeby tego przykładu po prostu zaktualizujemy stan middlePanel.
-    setMiddlePanel();
+    setMiddlePanel(<div/>);
   };
 
     const handleAddClick = () => {
       setMiddlePanel(
         <div id="CouponForm">
         <form onSubmit={handleSubmit}>
-            <input type="text" name="name" placeholder="ENTER COUPON NAME..." value={couponForm.name} />
-            <input type="text" name="description" placeholder="COUPON DESCRIPTION" value={couponForm.description} />
-            <input type="text" name="discount" placeholder="COUPON CODE" value={couponForm.discount}  />
-            <button type="submit">Dodaj</button>
+          <div id="couponNameContainer">
+            <input type="text" name="name" tex placeholder="COUPON NAME"  onChange={handleInputChange} required />
+          </div>
+          <div id="couponDescriptionContainer">
+            <textarea type="text" name="description" placeholder="COUPON DESCRIPTION"  onChange={handleInputChange} required />
+          </div>
+          <div id="couponCodeContainer">
+            <input type="text"  name="code" placeholder="COUPON CODE"  onChange={handleInputChange} required/>
+          </div>
+          <div id="couponSubmitContainer">
+            <button type="submit">accept</button>
+          </div>
           </form>
           </div>
       );
+      setCouponForm({
+        name: '',
+        description: '',
+        code: ''
+      });
   };
 
     const checkCredentials = () => {
@@ -51,6 +74,7 @@ function App() {
     };
 
     const backToLogin = () => {
+      setMiddlePanel(<div/>);
       setEmail(null)
       setPassword(null)
       setLoggedIn(false)
