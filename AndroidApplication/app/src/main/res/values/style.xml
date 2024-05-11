@@ -8,6 +8,14 @@
         <item name="android:textSize">26sp</item>
     </style>
 
+    <style name="AppHeaderTextStyle">
+        <item name="android:fontFamily">@font/inter_semi_bold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
     <style name="AppButtonStyle">
         <item name="android:fontFamily">@font/inter_semi_bold</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>

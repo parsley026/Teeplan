@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         EditText emailEdit = (EditText) findViewById(R.id.entryEmail);
         EditText passwordEdit = (EditText) findViewById(R.id.entryPassword);
-        String email = emailEdit.getText().toString();
-        String password = passwordEdit.getText().toString();
+        String email = emailEdit.getText().toString().trim();
+        String password = passwordEdit.getText().toString().trim();
 
         if (isLoginSuccessful(email, password)) {
             toastNotification("Login successful");
