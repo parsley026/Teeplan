@@ -5,21 +5,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,28 +27,18 @@ import java.util.Locale;
  */
 public class TimerFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    SharedPreferences sharedPreferences;
+    private static final String TIMER_RUNNING_KEY = "com.example.teeplan.buttonPref";
+    private boolean isTimerRunning = false;
 
     public TimerFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TimerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TimerFragment newInstance(String param1, String param2) {
         TimerFragment fragment = new TimerFragment();
         Bundle args = new Bundle();
@@ -59,6 +48,7 @@ public class TimerFragment extends Fragment {
         return fragment;
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +56,8 @@ public class TimerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        isTimerRunning = sharedPreferences.getBoolean(TIMER_RUNNING_KEY, false);
     }
 
 
@@ -79,18 +71,24 @@ public class TimerFragment extends Fragment {
         timerView = rootView.findViewById(R.id.timerText);
 
         startTimerButton = rootView.findViewById(R.id.startTimerButton);
+        updateButtonState();
 
 
         startTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTimerService();
+                if (!isTimerRunning) {
+                    startTimer();
+                } else {
+                    stopTimer();
+                }
             }
         });
 
 
         return rootView;
     }
+
     private void startTimerService() {
         Intent serviceIntent = new Intent(getActivity(), TimerService.class);
         getActivity().startService(serviceIntent);
@@ -106,6 +104,7 @@ public class TimerFragment extends Fragment {
         }
 
     };
+
     @Override
     public void onResume() {
         super.onResume();
@@ -115,8 +114,37 @@ public class TimerFragment extends Fragment {
         Log.e("TimerService", "receiver registered");
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(timerBroadcastReceiver);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateButtonState();
+    }
 
+    private void updateButtonState() {
+        if (isTimerRunning) {
+            startTimerButton.setText("Stop");
+        } else {
+            startTimerButton.setText("Start");
+        }
+    }
 
+    private void startTimer() {
+        startTimerService();
+        isTimerRunning = true;
+        sharedPreferences.edit().putBoolean(TIMER_RUNNING_KEY, true).apply();
+        updateButtonState();
+    }
+
+    private void stopTimer() {
+        isTimerRunning = false;
+        sharedPreferences.edit().putBoolean(TIMER_RUNNING_KEY, false).apply();
+        updateButtonState();
+    }
 
 }

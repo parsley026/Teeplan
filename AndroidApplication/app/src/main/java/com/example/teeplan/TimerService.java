@@ -1,4 +1,5 @@
 package com.example.teeplan;
+
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,19 +32,19 @@ public class TimerService extends Service {
         return null;
     }
 
-    private void startTimer(){
+    private void startTimer() {
         long minutes = 0;
         long seconds = 100;
 
         long timeMilis = minutes * 60 * 1000 + seconds * 1000;
-        countDownTimer = new CountDownTimer(timeMilis,50) {
+        countDownTimer = new CountDownTimer(timeMilis, 50) {
             @Override
             public void onTick(long millisUntilFinished) {
-                long hours = (millisUntilFinished/1000) /3600;
-                long minutes = ((millisUntilFinished/1000) %3600)/60;
-                long seconds = (millisUntilFinished/1000) %60;
-                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d",hours,minutes,seconds);
-                Log.e(LOG_TAG,Long.toString((millisUntilFinished/1000) %60));
+                long hours = (millisUntilFinished / 1000) / 3600;
+                long minutes = ((millisUntilFinished / 1000) % 3600) / 60;
+                long seconds = (millisUntilFinished / 1000) % 60;
+                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+                Log.e(LOG_TAG, Long.toString((millisUntilFinished / 1000) % 60));
 
                 Intent broadcastIntent = new Intent(TIMER_TICK_ACTION);
                 broadcastIntent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
