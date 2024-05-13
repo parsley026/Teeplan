@@ -71,6 +71,7 @@ public class TimerFragment extends Fragment {
         timerView = rootView.findViewById(R.id.timerText);
 
         startTimerButton = rootView.findViewById(R.id.startTimerButton);
+        startTimerButton.setText("25:00");
         updateButtonState();
 
 
@@ -80,7 +81,7 @@ public class TimerFragment extends Fragment {
                 if (!isTimerRunning) {
                     startTimer();
                 } else {
-                    stopTimer();
+                    resetTimer();
                 }
             }
         });
@@ -92,6 +93,11 @@ public class TimerFragment extends Fragment {
     private void startTimerService() {
         Intent serviceIntent = new Intent(getActivity(), TimerService.class);
         getActivity().startService(serviceIntent);
+    }
+
+    private void stopTimerService() {
+        Intent serviceIntent = new Intent(getActivity(), TimerService.class);
+        getActivity().stopService(serviceIntent);
     }
 
     private BroadcastReceiver timerBroadcastReceiver = new BroadcastReceiver() {
@@ -128,7 +134,7 @@ public class TimerFragment extends Fragment {
 
     private void updateButtonState() {
         if (isTimerRunning) {
-            startTimerButton.setText("Stop");
+            startTimerButton.setText("Reset");
         } else {
             startTimerButton.setText("Start");
         }
@@ -141,9 +147,11 @@ public class TimerFragment extends Fragment {
         updateButtonState();
     }
 
-    private void stopTimer() {
+    private void resetTimer() {
         isTimerRunning = false;
         sharedPreferences.edit().putBoolean(TIMER_RUNNING_KEY, false).apply();
+        timerView.setText("25:00");
+        stopTimerService();
         updateButtonState();
     }
 

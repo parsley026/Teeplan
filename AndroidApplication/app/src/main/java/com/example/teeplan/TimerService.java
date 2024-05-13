@@ -23,7 +23,8 @@ public class TimerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startTimer();
-        return super.onStartCommand(intent, flags, startId);
+        //return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     @Nullable
@@ -33,17 +34,16 @@ public class TimerService extends Service {
     }
 
     private void startTimer() {
-        long minutes = 0;
-        long seconds = 100;
+        long minutes = 25;
+        long seconds = 0;
 
-        long timeMilis = minutes * 60 * 1000 + seconds * 1000;
+        long timeMilis = minutes * 60 * 1000 + seconds * 1000 + 1000;
         countDownTimer = new CountDownTimer(timeMilis, 50) {
             @Override
             public void onTick(long millisUntilFinished) {
-                long hours = (millisUntilFinished / 1000) / 3600;
                 long minutes = ((millisUntilFinished / 1000) % 3600) / 60;
                 long seconds = (millisUntilFinished / 1000) % 60;
-                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 Log.e(LOG_TAG, Long.toString((millisUntilFinished / 1000) % 60));
 
                 Intent broadcastIntent = new Intent(TIMER_TICK_ACTION);
@@ -58,6 +58,15 @@ public class TimerService extends Service {
             }
         };
         countDownTimer.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "TimerService onDestroy");
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
 }
