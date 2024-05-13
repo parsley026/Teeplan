@@ -14,8 +14,10 @@ import java.util.Locale;
 
 public class TimerService extends Service {
     public static final String TIMER_TICK_ACTION = "com.example.teeplan.timerTick";
+    public static final String INTERVAL_CHANGE_ACTION = "com.example.teeplan.intervalChange";
     public static final String EXTRA_TIME_VALUE = "extra_time_value";
     private boolean isRunning = true;
+    private boolean isWorkInterval = true;
     private static final String LOG_TAG = "TimerService";
     private CountDownTimer countDownTimer;
 
@@ -23,6 +25,8 @@ public class TimerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startTimer();
+
+
         //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
@@ -34,17 +38,16 @@ public class TimerService extends Service {
     }
 
     private void startTimer() {
-        long minutes = 25;
-        long seconds = 0;
+        long minutes = isWorkInterval ? 0 : 0;
+        long seconds = isWorkInterval ? 5 : 10;
 
         long timeMilis = minutes * 60 * 1000 + seconds * 1000 + 1000;
-        countDownTimer = new CountDownTimer(timeMilis, 50) {
+        countDownTimer = new CountDownTimer(timeMilis, 20) {
             @Override
             public void onTick(long millisUntilFinished) {
-                long minutes = ((millisUntilFinished / 1000) % 3600) / 60;
-                long seconds = (millisUntilFinished / 1000) % 60;
-                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
-//                Log.e(LOG_TAG, Long.toString((millisUntilFinished / 1000) % 60));
+                long minutesString = ((millisUntilFinished / 1000) % 3600) / 60;
+                long secondsString = (millisUntilFinished / 1000) % 60;
+                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutesString, secondsString);
 
                 Intent broadcastIntent = new Intent(TIMER_TICK_ACTION);
                 broadcastIntent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -55,6 +58,13 @@ public class TimerService extends Service {
             @Override
             public void onFinish() {
                 Log.e(LOG_TAG, "Finished");
+                Intent broadcastIntent = new Intent(INTERVAL_CHANGE_ACTION);
+                broadcastIntent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                sendBroadcast(broadcastIntent);
+
+                isWorkInterval = !isWorkInterval;
+
+                startTimer();
             }
         };
         countDownTimer.start();
@@ -68,5 +78,6 @@ public class TimerService extends Service {
             countDownTimer.cancel();
         }
     }
+
 
 }
