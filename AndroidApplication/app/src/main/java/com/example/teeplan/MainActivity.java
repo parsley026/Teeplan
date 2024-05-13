@@ -4,8 +4,6 @@ package com.example.teeplan;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        resetTheTimerToOriginalState();
+        resetTimerToOriginalState();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void resetTheTimerToOriginalState() {
+    private void resetTimerToOriginalState() {
         SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(TIMER_RUNNING_KEY, false).apply();
     }

@@ -44,7 +44,7 @@ public class TimerService extends Service {
                 long minutes = ((millisUntilFinished / 1000) % 3600) / 60;
                 long seconds = (millisUntilFinished / 1000) % 60;
                 String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
-                Log.e(LOG_TAG, Long.toString((millisUntilFinished / 1000) % 60));
+//                Log.e(LOG_TAG, Long.toString((millisUntilFinished / 1000) % 60));
 
                 Intent broadcastIntent = new Intent(TIMER_TICK_ACTION);
                 broadcastIntent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
