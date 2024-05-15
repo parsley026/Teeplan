@@ -94,3 +94,45 @@ export async function getUsers() {
     }
   }
   
+
+  // Initialize getCoupons
+export async function getCoupons() {
+    try {
+      const snapshot = await get(child(ref(database), 'coupons'));
+      const coupons = [];
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          coupons.push(childSnapshot.val());
+        });
+      }
+      return coupons;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+  
+      console.error("getUsers faild")
+      console.error(errorCode + errorMessage);
+      return [];
+    }
+  }
+  
+  // Initialize getEvents
+  export async function getEvents() {
+    try {
+      const snapshot = await get(child(ref(database), 'events'));
+      const events = [];
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          events.push(childSnapshot.val());
+        });
+      }
+      return events;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+  
+      console.error("getEvents faild")
+      console.error(errorCode + errorMessage);
+      return [];
+    }
+  }
