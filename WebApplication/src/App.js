@@ -2,12 +2,14 @@ import './App.css';
 import './After_login.css';
 import './Add_coupon.css';
 import React, { useState } from 'react';
-import './assets/firebase.js';
+import {login} from './assets/firebase.js';
 
 function App() {
+    const [loggedIn, setLoggedIn] = useState(false);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
+
     const [middlePanel, setMiddlePanel] = useState(null);
     const [couponForm, setCouponForm] = useState({
       name: '',
@@ -65,13 +67,11 @@ function App() {
       });
   };
 
-    const checkCredentials = () => {
-      if (email === "123" && password === "123") {
-        setLoggedIn(true)
-      } else {
-        alert("Nieprawidłowy email lub hasło. Spróbuj ponownie.");
-      }
-    };
+  const logInUser = () => {
+    login(email, password, (callback) => {
+      setLoggedIn(callback);
+    });
+  };
 
     const backToLogin = () => {
       setMiddlePanel(<div/>);
@@ -132,7 +132,7 @@ function App() {
                     <input id="password_input" type="password" placeholder="Password"required value={password}
                     onChange={handlePasswordChange}/>
                   </div>
-                  <div id="login_button" onClick={checkCredentials}>
+                  <div id="login_button" onClick={logInUser}>
                           <p>log in</p>
                   </div>
               </div>
@@ -159,7 +159,7 @@ function App() {
         <div id="rightPannel">
             <div id="logoutPanel">
                 <div id="leftPadding"></div>
-                <div id="logoutPanel_text"><p>{email}</p></div>
+                <div id="logoutPanel_text"><p>ADMIN</p></div>
                 <div id="logoutPanel_icon" onClick={backToLogin}></div>
             </div>
         </div>

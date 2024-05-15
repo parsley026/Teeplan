@@ -19,3 +19,56 @@ const app = initializeApp(firebaseConfig);
 // Initialize Other Features
 const auth = getAuth(app);
 const database = getDatabase(app);
+
+// Initialize registerUser
+// const register = document.getElementById('register');
+// register.addEventListener("click", function(event) {
+//   event.preventDefault();
+  
+//   const first_name = "none";
+//   const last_name = "none";
+//   const is_admin = false;
+//   const email = document.getElementById("email_input").value;
+//   const password = document.getElementById("password_input").value;
+
+//   const data = {
+//     first_name : first_name,
+//     last_name : last_name,
+//     is_admin : is_admin,
+//     email : email,
+//     password : password
+//   };
+
+//   createUserWithEmailAndPassword(auth, email, password)
+//   .then((credentials) => {
+//     const ID = auth.currentUser.uid;
+//     alert();
+//     set(ref(database, 'users/' + ID), data)
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
+// })
+
+// Initialize loginAdmin
+export function login(email, password, callback) {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((credentials) => {
+        get(child(ref(database), 'users/' + credentials.user.uid)).then((snapshot) => {
+          const data = snapshot.val();
+          if (snapshot.exists() && data.is_admin === true) {
+            callback(true);
+          } else {
+            callback(false);
+          }
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        
+        callback(false);
+        console.error(errorCode + errorMessage);
+      });
+  }
