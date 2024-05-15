@@ -2,7 +2,7 @@ import './App.css';
 import './After_login.css';
 import './Add_coupon.css';
 import React, { useState } from 'react';
-
+import './assets/firebase.js';
 
 function App() {
     const [email, setEmail] = useState('');
