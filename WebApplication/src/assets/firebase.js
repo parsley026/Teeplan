@@ -72,3 +72,25 @@ export function login(email, password, callback) {
         console.error(errorCode + errorMessage);
       });
   }
+
+  // Initialize getUsers
+export async function getUsers() {
+    try {
+      const snapshot = await get(child(ref(database), 'users'));
+      const users = [];
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          users.push(childSnapshot.val());
+        });
+      }
+      return users;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+  
+      console.error("getUsers faild")
+      console.error(errorCode + errorMessage);
+      return [];
+    }
+  }
+  

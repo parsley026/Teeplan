@@ -1,14 +1,18 @@
 import './App.css';
 import './After_login.css';
 import './Add_coupon.css';
-import React, { useState } from 'react';
-import {login} from './assets/firebase.js';
+import React, { useState, useEffect } from 'react';
+import {login, getUsers} from './assets/firebase.js';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [search, setSearch] = useState('');
+
+    const [users, setUsers] = useState([]);
 
     const [middlePanel, setMiddlePanel] = useState(null);
     const [couponForm, setCouponForm] = useState({
@@ -73,6 +77,54 @@ function App() {
     });
   };
 
+  const fetchUsers = async () => {
+    try {
+      const fetchedUsers = await getUsers(search);
+      setUsers(fetchedUsers);
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.error("fetchUsers faild")
+      console.error(errorCode + errorMessage);
+    }
+  };
+
+  const showOptionsUsers = () => {
+    setMiddlePanel(
+      <div id="section_panel">
+        <div class="action_panel">
+          <div class="option_panel">
+            <div class="text_panel">ADD</div>
+            <div class="icon" id="add_icon"></div>
+          </div>
+          <div class="option_panel">
+            <div class="text_panel">FIND</div>
+            <div class="icon" id="search_icon"></div>
+          </div>
+        </div>
+        <div class="data_container">
+          {users.map((user, index) => (
+            <div class="information_container" key={index}>
+              <div class="data_field"><p>{user.first_name}</p></div>
+              <div class="data_field"><p>{user.last_name}</p></div>
+              <div class="data_field"><p>{user.email}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  function loadData() {
+    fetchUsers();
+  }
+
+
+  useEffect(() => {
+    loadData();
+  });
+
     const backToLogin = () => {
       setMiddlePanel(<div/>);
       setEmail(null)
@@ -109,10 +161,6 @@ function App() {
         </div>
       );
     };
-
-    const showOptionsUsers = () => {
-      setMiddlePanel(null)
-    }
 
   return (
     <div className="App">
