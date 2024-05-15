@@ -53,86 +53,86 @@ const database = getDatabase(app);
 
 // Initialize loginAdmin
 export function login(email, password, callback) {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((credentials) => {
-        get(child(ref(database), 'users/' + credentials.user.uid)).then((snapshot) => {
-          const data = snapshot.val();
-          if (snapshot.exists() && data.is_admin === true) {
-            callback(true);
-          } else {
-            callback(false);
-          }
-        });
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        
-        callback(false);
-        console.error(errorCode + errorMessage);
+  signInWithEmailAndPassword(auth, email, password)
+    .then((credentials) => {
+      get(child(ref(database), 'users/' + credentials.user.uid)).then((snapshot) => {
+        const data = snapshot.val();
+        if (snapshot.exists() && data.is_admin === true) {
+          callback(true);
+        } else {
+          callback(false);
+        }
       });
-  }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      
+      callback(false);
+      console.error(errorCode + errorMessage);
+    });
+}
 
-  // Initialize getUsers
+// Initialize getUsers
 export async function getUsers() {
-    try {
-      const snapshot = await get(child(ref(database), 'users'));
-      const users = [];
-      if (snapshot.exists()) {
-        snapshot.forEach((childSnapshot) => {
-          users.push(childSnapshot.val());
-        });
-      }
-      return users;
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-  
-      console.error("getUsers faild")
-      console.error(errorCode + errorMessage);
-      return [];
+  try {
+    const snapshot = await get(child(ref(database), 'users'));
+    const users = [];
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        users.push(childSnapshot.val());
+      });
     }
-  }
-  
+    return users;
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
 
-  // Initialize getCoupons
+    console.error("getUsers faild")
+    console.error(errorCode + errorMessage);
+    return [];
+  }
+}
+
+// Initialize getCoupons
 export async function getCoupons() {
-    try {
-      const snapshot = await get(child(ref(database), 'coupons'));
-      const coupons = [];
-      if (snapshot.exists()) {
-        snapshot.forEach((childSnapshot) => {
-          coupons.push(childSnapshot.val());
-        });
-      }
-      return coupons;
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-  
-      console.error("getUsers faild")
-      console.error(errorCode + errorMessage);
-      return [];
+  try {
+    const snapshot = await get(child(ref(database), 'coupons'));
+    const coupons = [];
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        coupons.push(childSnapshot.val());
+      });
     }
+    return coupons;
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    console.error("getUsers faild")
+    console.error(errorCode + errorMessage);
+    return [];
   }
-  
-  // Initialize getEvents
-  export async function getEvents() {
-    try {
-      const snapshot = await get(child(ref(database), 'events'));
-      const events = [];
-      if (snapshot.exists()) {
-        snapshot.forEach((childSnapshot) => {
-          events.push(childSnapshot.val());
-        });
-      }
-      return events;
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-  
-      console.error("getEvents faild")
-      console.error(errorCode + errorMessage);
-      return [];
+}
+
+// Initialize getEvents
+export async function getEvents() {
+  try {
+    const snapshot = await get(child(ref(database), 'events'));
+    const events = [];
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        events.push(childSnapshot.val());
+      });
     }
+    return events;
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    console.error("getEvents faild")
+    console.error(errorCode + errorMessage);
+    return [];
   }
+}
+
