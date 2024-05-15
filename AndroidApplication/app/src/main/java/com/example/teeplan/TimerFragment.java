@@ -29,6 +29,10 @@ public class TimerFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private int minutesWork = 25;
+    private int secondsWork = 0;
+    private int minutesBreak = 5;
+    private int secondsBreak = 0;
 
     private String mParam1;
     private String mParam2;
@@ -61,8 +65,45 @@ public class TimerFragment extends Fragment {
         isTimerRunning = sharedPreferences.getBoolean(TIMER_RUNNING_KEY, false);
     }
 
+    private TimerService mTimerService;
+    private boolean mBound = false;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
+            mTimerService = binder.getService();
+            mBound = true;
+            refreshDynamicElements();
+            Log.e("TimerService", "service connected");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName className) {
+            mBound = false;
+        }
+    };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Intent intent = new Intent(getActivity(), TimerService.class);
+        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mBound) {
+            getActivity().unbindService(mConnection);
+            mBound = false;
+        }
+    }
+
 
     private Button startTimerButton;
+    private Button opt1Button;
+    private Button opt2Button;
     private TextView timerView;
     private TextView isBreakView;
 
@@ -74,7 +115,10 @@ public class TimerFragment extends Fragment {
         isBreakView = rootView.findViewById(R.id.isBreak);
 
         startTimerButton = rootView.findViewById(R.id.startTimerButton);
-        startTimerButton.setText("00:05");
+        opt1Button = rootView.findViewById(R.id.timeOptionButton1);
+        opt2Button = rootView.findViewById(R.id.timeOptionButton2);
+
+        timerView.setText(getInitialWorkTime());
         Log.e("TimerService", "fragm createView");
 
         updateButtonState();
@@ -89,13 +133,43 @@ public class TimerFragment extends Fragment {
                 }
             }
         });
+        opt1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isTimerRunning) {
+                    minutesWork = 25;
+                    secondsWork = 0;
+                    minutesBreak = 5;
+                    secondsBreak = 0;
+                    timerView.setText(getInitialWorkTime());
+                }
+            }
+        });
+        opt2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isTimerRunning) {
+                    minutesWork = 0;
+                    secondsWork = 3;
+                    minutesBreak = 0;
+                    secondsBreak = 1;
+                    timerView.setText(getInitialWorkTime());
+                }
+            }
+        });
 
 
         return rootView;
     }
 
     private void startTimerService() {
+        Log.e("TimerService", "Starting a new service");
         Intent serviceIntent = new Intent(getActivity(), TimerService.class);
+        serviceIntent.putExtra("minutesWork", minutesWork);
+        serviceIntent.putExtra("secondsWork", secondsWork);
+
+        serviceIntent.putExtra("minutesBreak", minutesBreak);
+        serviceIntent.putExtra("secondsBreak", secondsBreak);
         getActivity().startService(serviceIntent);
     }
 
@@ -169,11 +243,10 @@ public class TimerFragment extends Fragment {
         handleIsBreak();
         stopTimerService();
         updateButtonState();
-        timerView.setText("00:05");
+        timerView.setText(getInitialWorkTime());
     }
 
     private void handleIsBreak() {
-        isTimerRunning = sharedPreferences.getBoolean(TIMER_RUNNING_KEY, false);
         if (isTimerRunning) {
             if (isWorkInterval()) {
                 isBreakView.setText("FOCUS TIME");
@@ -185,46 +258,12 @@ public class TimerFragment extends Fragment {
         }
     }
 
-    private TimerService mTimerService;
-    private boolean mBound = false;
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
-            mTimerService = binder.getService();
-            mBound = true;
-            refreshDynamicElements();
-            Log.e("TimerService", "service connected");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName className) {
-            mBound = false;
-        }
-    };
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Intent intent = new Intent(getActivity(), TimerService.class);
-        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mBound) {
-            getActivity().unbindService(mConnection);
-            mBound = false;
-        }
-    }
 
     private boolean isWorkInterval() {
         if (mBound) {
             return mTimerService.isWorkInterval();
         }
-        return false;
+        return true;
     }
 
     private String getTime() {
@@ -240,6 +279,10 @@ public class TimerFragment extends Fragment {
         if (time != null) {
             timerView.setText(time);
         }
+    }
+
+    private String getInitialWorkTime() {
+        return String.format("%02d:%02d", minutesWork, secondsWork);
     }
 
 }

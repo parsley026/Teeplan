@@ -13,7 +13,6 @@
         style="@style/AppHeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="25:00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +31,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerText"
         app:layout_constraintVertical_bias="0.123" />
+
+    <Button
+        android:id="@+id/timeOptionButton1"
+        style="@style/AppButtonStyle"
+        android:layout_width="179dp"
+        android:layout_height="53dp"
+        android:text="25:00 | 05:00"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/timeOptionButton2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <Button
+        android:id="@+id/timeOptionButton2"
+        style="@style/AppButtonStyle"
+        android:layout_width="179dp"
+        android:layout_height="53dp"
+        android:text="00:03 | 00:01"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timeOptionButton1"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
 
     <TextView
         android:id="@+id/isBreak"

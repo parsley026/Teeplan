@@ -19,12 +19,15 @@ public class TimerService extends Service {
     private static final String LOG_TAG = "TimerService";
     private CountDownTimer countDownTimer;
     String timeFormatted;
-
+    long minutesWork, minutesBreak, secondsWork, secondsBreak;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        minutesWork = intent.getIntExtra("minutesWork", 25);
+        secondsWork = intent.getIntExtra("secondsWork", 0);
+        minutesBreak = intent.getIntExtra("minutesBreak", 5);
+        secondsBreak = intent.getIntExtra("secondsBreak", 0);
         startTimer();
-
 
         //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
@@ -32,8 +35,8 @@ public class TimerService extends Service {
 
 
     private void startTimer() {
-        long minutes = isWorkInterval ? 0 : 0;
-        long seconds = isWorkInterval ? 5 : 10;
+        long minutes = isWorkInterval ? minutesWork : minutesBreak;
+        long seconds = isWorkInterval ? secondsWork : secondsBreak;
 
         long timeMilis = minutes * 60 * 1000 + seconds * 1000 + 999;
         countDownTimer = new CountDownTimer(timeMilis, 50) {
@@ -54,16 +57,14 @@ public class TimerService extends Service {
             public void onFinish() {
                 Log.e(LOG_TAG, "Finished");
 
+                isWorkInterval = !isWorkInterval;
+
                 Intent broadcastIntentStatus = new Intent(INTERVAL_CHANGE_ACTION);
-                broadcastIntentStatus.putExtra(EXTRA_STATUS_VALUE, !isWorkInterval);
                 broadcastIntentStatus.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 sendBroadcast(broadcastIntentStatus);
-
-                isWorkInterval = !isWorkInterval;
                 startTimer();
             }
-        };
-        countDownTimer.start();
+        }.start();
     }
 
     @Override
@@ -79,7 +80,6 @@ public class TimerService extends Service {
 
     public class LocalBinder extends Binder {
         TimerService getService() {
-            // Return this instance of LocalService so clients can call public methods.
             return TimerService.this;
         }
     }
