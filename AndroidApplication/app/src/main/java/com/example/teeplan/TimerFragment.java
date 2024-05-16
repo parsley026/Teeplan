@@ -89,6 +89,7 @@ public class TimerFragment extends Fragment {
         super.onStart();
         Intent intent = new Intent(getActivity(), TimerService.class);
         getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        mBound = true;
     }
 
     @Override
@@ -171,6 +172,8 @@ public class TimerFragment extends Fragment {
         serviceIntent.putExtra("minutesBreak", minutesBreak);
         serviceIntent.putExtra("secondsBreak", secondsBreak);
         getActivity().startService(serviceIntent);
+        getActivity().bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
+        mBound = true;
     }
 
     private void stopTimerService() {
@@ -197,6 +200,7 @@ public class TimerFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() != null && intent.getAction().equals(TimerService.INTERVAL_CHANGE_ACTION)) {
+                Log.e("TimerService", "on recieve interval change, mBound = " + mBound);
                 refreshDynamicElements();
             }
         }
