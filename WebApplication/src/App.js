@@ -10,7 +10,7 @@ import {login, getUsers, getCoupons, getEvents} from './assets/firebase.js';
 
 function App() {
   // State variables
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -101,24 +101,19 @@ function App() {
   };
 
   const showOptionsUsers = () => {
+    //TODO pasek wyszukiwania
     setMiddlePanel(
       <div id="section_panel">
         <div class="action_panel">
-          <div class="option_panel">
-            <div class="text_panel">ADD</div>
-            <div class="icon" id="add_icon"></div>
-          </div>
-          <div class="option_panel">
-            <div class="text_panel">FIND</div>
-            <div class="icon" id="search_icon"></div>
-          </div>
+          
         </div>
         <div class="data_container">
           {users.map((user, index) => (
-            <div class="information_container" key={index}>
+            <div class="information_container_user" key={index}>
               <div class="data_field"><p>{user.first_name}</p></div>
               <div class="data_field"><p>{user.last_name}</p></div>
               <div class="data_field"><p>{user.email}</p></div>
+              <div class='trash_bin_container'></div>
             </div>
           ))}
         </div>

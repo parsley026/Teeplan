@@ -7,7 +7,7 @@ export function mainPage(middlePanel, showOptionsUsers, showOptionsEvents, showO
                 <div id="left_inner_container">
                     <div class="option_panel" id="users_panel" onClick={showOptionsUsers}>
                         <div class="icon" id="users_icon"></div>
-                        <div class="text_panel">USERS</div>
+                        <div class="text_panel"><p>USERS</p></div>
                     </div>
                     <div class="option_panel" id="events_panel" onClick={showOptionsEvents}>
                         <div class="icon" id="events_icon"></div>
@@ -23,7 +23,7 @@ export function mainPage(middlePanel, showOptionsUsers, showOptionsEvents, showO
                 </div>
                 <div id="right_inner_container">
                     <div class="option_panel" id="logOut_panel" onClick={logOutLogin}>
-                        <div class="text_panel"><p>LOG OUT</p></div>
+                        <div class="text_panel_right"><p>LOG OUT</p></div>
                         <div class="icon" id="logOut_icon"></div>
                     </div>
                 </div>
