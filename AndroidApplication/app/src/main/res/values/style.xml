@@ -25,4 +25,12 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/button_shape</item>
     </style>
+
+    <style name="AppMinorText">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 </resources>

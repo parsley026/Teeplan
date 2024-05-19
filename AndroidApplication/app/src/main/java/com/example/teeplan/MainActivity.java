@@ -1,7 +1,7 @@
 package com.example.teeplan;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.teeplan.databinding.ActivityMainBinding;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        //Objects.requireNonNull(getSupportActionBar()).hide();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -36,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.home) {
                 replaceFragemnt(new HomeFragment());
             } else if (id == R.id.todo) {
-                replaceFragemnt(new TodoFragment());
-
+               replaceFragemnt(new ToDoFragment());
             } else if (id == R.id.timer) {
                 replaceFragemnt(new TimerFragment());
             } else if (id == R.id.coupon) {
