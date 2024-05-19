@@ -6,8 +6,8 @@ body{
 
 @font-face {
   font-family: 'interregular';
-  src: url('../../res/inter-variablefont_slntwght-webfont.woff2') format('woff2'),
-       url('../../res/inter-variablefont_slntwght-webfont.woff') format('woff');
+  src: url('../../assets/inter-variablefont_slntwght-webfont.woff2') format('woff2'),
+       url('../../assets/inter-variablefont_slntwght-webfont.woff') format('woff');
   font-weight:lighter;
   font-style:normal;
 }
@@ -27,13 +27,13 @@ body{
   width: 40%;
   left: 30%;
   top: 5%;
-  background-image: url("../../res/logo_nobackground.png");
+  background-image: url("../../assets/logo_no_background.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position:center;
 }
 
-#login_containers{
+#form_container{
   position: relative;
   height: 100%;
 }

@@ -71,51 +71,51 @@ p {
 }
 
 #logOut_icon {
-    background-image: url("../../res/logoutIcon.png");
+    background-image: url("../../assets/logoutIcon_green.png");
 }
 
 #logOut_panel:hover #logOut_icon{
-    background-image: url("../../res/logoutIcon_white.png");
+    background-image: url("../../assets/logoutIcon_white.png");
 }
 
 #users_icon{
-    background-image: url("../../res/personIcon.png");
+    background-image: url("../../assets/personIcon_green.png");
 }
 
 #users_panel:hover #users_icon{
-    background-image: url("../../res/personIconWhite.png");
+    background-image: url("../../assets/personIcon_white.png");
 }
 
 #events_icon{
-    background-image: url("../../res/bookmarkIcon.png");
+    background-image: url("../../assets/bookmarkIcon_green.png");
 }
 
 #events_panel:hover #events_icon{
-    background-image: url("../../res/bookmarkIconWhite.png");
+    background-image: url("../../assets/bookmarkIcon_white.png");
 }
 
 #coupons_icon{
-    background-image: url("../../res/loyaltyCardIcon.png");
+    background-image: url("../../assets/loyaltyCardIcon_green.png");
 }
 
 #coupons_panel:hover #coupons_icon{
-    background-image: url("../../res/loyaltyCardIconWhite.png");
+    background-image: url("../../assets/loyaltyCardIcon_white.png");
 }
 
 #search_icon{
-    background-image: url("../../res/searchIcon.png");
+    background-image: url("../../assets/searchIcon_green.png");
 }
 
 #search_panel:hover #search_icon{
-    background-image: url("../../res/searchIcon_white.png");
+    background-image: url("../../assets/searchIcon_white.png");
 }
 
 #add_icon{
-    background-image: url("../../res/addIcon.png");
+    background-image: url("../../assets/addIcon_green.png");
 }
 
 #add_panel:hover #add_icon{
-    background-image: url("../../res/addIcon.png");
+    background-image: url("../../assets/addIcon_white.png");
 }
 
 #left_inner_container{ 
@@ -210,12 +210,12 @@ p {
 
     background-position: center;
     
-    background-image: url("../../res/trashBinIcon.png");
+    background-image: url("../../assets/trashBinIcon_green.png");
 
     cursor: pointer;
 }
 .trash_bin_container:hover{
-    background-image: url("../../res/trashBinIcon_white.png");
+    background-image: url("../../assets/trashBinIcon_white.png");
 }
 
 #section_panel {

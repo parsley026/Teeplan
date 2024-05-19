@@ -3,14 +3,13 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, get, child } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAcDPL2ibubVLvP7wTkAWL6BLAeB3qEdPM",
-  authDomain: "teeplan-afede.firebaseapp.com",
-  databaseURL: "https://teeplan-afede-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "teeplan-afede",
-  storageBucket: "teeplan-afede.appspot.com",
-  messagingSenderId: "211842582548",
-  appId: "1:211842582548:web:1154b8e7ed6fe4a6feff01",
-  measurementId: "G-4B1P4TSWGQ"
+  apiKey: "AIzaSyCgON90z2wvYH0sdP5aMSiFIXm9yU7WiG0",
+  authDomain: "fir-tutorial-e7fdf.firebaseapp.com",
+  databaseURL: "https://fir-tutorial-e7fdf-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "fir-tutorial-e7fdf",
+  storageBucket: "fir-tutorial-e7fdf.appspot.com",
+  messagingSenderId: "382392829369",
+  appId: "1:382392829369:web:22655e3d93f6d284da2268"
 };
 
 // Initialize Firebase

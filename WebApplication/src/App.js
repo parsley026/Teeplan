@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import './pages/loginPage/loginPage.css';
 import {loginPage} from './pages/loginPage/loginPage.js';
-
-import './pages/mainPage/mainPage.css';
 import {mainPage} from './pages/mainPage/mainPage.js';
 
-import {login, getUsers, getCoupons, getEvents} from './assets/firebase.js';
+import {login, getUsers, getCoupons, getEvents} from './services/firebase.js';
 
 function App() {
   // State variables
