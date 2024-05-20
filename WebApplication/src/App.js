@@ -109,7 +109,10 @@ function App() {
     setMiddlePanel(
       <div id="section_panel">
         <div class="action_panel">
-          
+          <div class="search_bar">
+              <input class="searchbar_input" placeholder='search'></input>
+              <div class ="icon" id="search_icon"></div>
+          </div>
         </div>
         <div class="data_container">
           {users.map((user, index) => (
