@@ -221,7 +221,8 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     box-sizing: border-box;
 }
 
-.information_container_user {
+
+.information_container{
     width: 40%;
     height: 20%;
     position: relative;
@@ -277,6 +278,7 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
 .trash_bin_container:hover{
     background-image: url("../../assets/trashBinIcon_white.png");
 }
+
 
 #section_panel {
 

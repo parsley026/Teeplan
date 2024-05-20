@@ -8,7 +8,7 @@ import {login, getUsers, getCoupons, getEvents} from './services/firebase.js';
 function App() {
   // State variables
   const [loggedIn, setLoggedIn] = useState(false);
-
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -82,9 +82,12 @@ function App() {
         <div class="data_container">
           {events.map((event, index) => (
             <div class="information_container" key={index}>
+              <div class="data_field_container">
               <div class="data_field">{event.name}</div>
               <div class="data_field">{event.description}</div>
               <div class="data_field">{event.date}</div>
+              </div>
+              <div class='trash_bin_container'></div>
             </div>
           ))}
         </div>
@@ -122,9 +125,12 @@ function App() {
         <div class="data_container">
           {coupons.map((coupon, index) => (
             <div class="information_container" key={index}>
+              <div class="data_field_container">
               <div class="data_field"><p>{coupon.name}</p></div>
               <div class="data_field"><p>{coupon.description}</p></div>
               <div class="data_field"><p>{coupon.code}</p></div>
+              </div>
+              <div class='trash_bin_container'></div>
             </div>
           ))}
         </div>
@@ -143,7 +149,7 @@ function App() {
         </div>
         <div class="data_container">
           {users.map((user, index) => (
-            <div class="information_container_user" key={index}>
+            <div class="information_container" key={index}>
               <div class="data_field_container">
               <div class="data_field"><p>{user.first_name}</p></div>
               <div class="data_field"><p>{user.last_name}</p></div>
