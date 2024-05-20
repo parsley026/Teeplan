@@ -373,7 +373,9 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     width: 50%;
     border: solid  1px #C1DBB3;
     border-radius: 1vh;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .outline input{   

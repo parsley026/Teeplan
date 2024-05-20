@@ -73,15 +73,15 @@ function App() {
   const addOptionsEvents = () => {
     setMiddlePanel(
       <div class="add_form">
-        <div class="text_panel">ADD NEW COUPON</div>
+        <div class="text_panel">ADD NEW EVENT</div>
           <div class="outline">
-            <input class="input_field" type="text" name="name" tex placeholder="COUPON NAME"  required />
+            <input class="input_field" type="text" name="name" tex placeholder="EVENT NAME"  required />
             </div>
             <div class="outline">
-            <textarea class="input_field" type="text" name="description" placeholder="COUPON DESCRIPTION"  required />
+            <textarea class="input_field" type="text" name="description" placeholder="EVENT DESCRIPTION"  required />
             </div>
             <div class="outline">
-            <input  class="input_field" type="text"  name="code" placeholder="COUPON CODE"   required/>
+            <input  class="input_field" type="date"  name="code"  required/>
             </div>
             <div class="button">accept</div>
       </div>
@@ -122,7 +122,7 @@ function App() {
             <div class="small_panel_text">SEARCH</div>
             <div class="icon" id="search_icon"></div>
           </div>
-          <div class="small_panel">
+          <div class="small_panel" onClick={addOptionsCoupon}>
             <div class="small_panel_text">ADD</div>
             <div class="icon" id="add_icon"></div>
           </div>
@@ -130,6 +130,24 @@ function App() {
       </div>
     )
   };
+
+  const addOptionsCoupon = () => {
+    setMiddlePanel(
+      <div class="add_form">
+        <div class="text_panel">ADD NEW COUPON</div>
+          <div class="outline">
+            <input class="input_field" type="text" name="name" tex placeholder="COUPON NAME"  required />
+            </div>
+            <div class="outline">
+            <textarea class="input_field" type="text" name="description" placeholder="COUPON DESCRIPTION"  required />
+            </div>
+            <div class="outline">
+            <input  class="input_field" type="text"  name="code" placeholder="COUPON CODE"   required/>
+            </div>
+            <div class="button">accept</div>
+      </div>
+    );
+  }
 
   const showOptionsCoupon = () => {
     setMiddlePanel(
