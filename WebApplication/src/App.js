@@ -114,9 +114,11 @@ function App() {
         <div class="data_container">
           {users.map((user, index) => (
             <div class="information_container_user" key={index}>
+              <div class="data_field_container">
               <div class="data_field"><p>{user.first_name}</p></div>
               <div class="data_field"><p>{user.last_name}</p></div>
               <div class="data_field"><p>{user.email}</p></div>
+              </div>
               <div class='trash_bin_container'></div>
             </div>
           ))}

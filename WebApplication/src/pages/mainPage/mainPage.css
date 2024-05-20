@@ -69,6 +69,10 @@ p {
     background-position: center;
 
 }
+ 
+.icon:hover{
+    cursor:pointer;
+}
 
 #logOut_icon {
     background-image: url("../../assets/logoutIcon_green.png");
@@ -175,17 +179,23 @@ p {
     width: 40%;
     height: 20%;
     position: relative;
-    padding-top: 1%;
 
     
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     border: 0.01vh solid #DDF9C1;
     border-radius: 3vh;
 }
 
+.data_field_container{
+    width: 50%;
+    height: 100%;
+}
+
 .data_field {
+    padding-left: 2vh;
+    padding-top: 1vh;
     color: #DDF9C1;
     border-bottom: #DDF9C1 solid 0.01vh;
 
@@ -202,7 +212,11 @@ p {
     width: 10%;
     height: 30%;
 
-    align-self: flex-end;
+    position:absolute;
+
+    right: 0;
+    bottom: 0;
+
 
     background-size: contain;
 
