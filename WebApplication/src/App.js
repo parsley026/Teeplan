@@ -52,17 +52,31 @@ function App() {
     setLoggedIn(false);
   };
 
+  const showChooseMenuEvents = () =>{
+    setMiddlePanel(
+      <div class="add_search_menu">
+        <div class="text_panel">EVENTS</div>
+        <div class="choose_menu">
+          <div class="small_panel" onClick={showOptionsEvents} >
+            <div class="small_panel_text">SEARCH</div>
+            <div class="icon" id="search_icon"></div>
+          </div>
+          <div class="small_panel" onClick={setMiddlePanel(<div />)}>
+            <div class="small_panel_text">ADD</div>
+            <div class="icon" id="add_icon"></div>
+          </div>
+        </div>
+      </div>
+    )
+  };
+
   const showOptionsEvents = () => {
     setMiddlePanel(
       <div id="section_panel">
-        <div class="action_panel">
-          <div class="option_panel" id="add_panel">
-            <div class="text_panel">ADD</div>
-            <div class="icon" id="add_icon"></div>
-          </div>
-          <div class="option_panel" id="search_panel">
-            <div class="text_panel">FIND</div>
-            <div class="icon" id="search_icon"></div>
+          <div class="action_panel">
+          <div class="search_bar">
+              <input class="searchbar_input" placeholder='search'></input>
+              <div class ="icon" id="search_icon"></div>
           </div>
         </div>
         <div class="data_container">
@@ -78,17 +92,31 @@ function App() {
     );
   };
 
+  const showChooseMenuCoupon = () =>{
+    setMiddlePanel(
+      <div class="add_search_menu">
+        <div class="text_panel">COUPONS</div>
+        <div class="choose_menu">
+          <div class="small_panel" onClick={showOptionsCoupon} >
+            <div class="small_panel_text">SEARCH</div>
+            <div class="icon" id="search_icon"></div>
+          </div>
+          <div class="small_panel">
+            <div class="small_panel_text">ADD</div>
+            <div class="icon" id="add_icon"></div>
+          </div>
+        </div>
+      </div>
+    )
+  };
+
   const showOptionsCoupon = () => {
     setMiddlePanel(
       <div id="section_panel">
         <div class="action_panel">
-          <div class="option_panel">
-            <div class="text_panel">ADD</div>
-            <div class="icon" id="add_icon"></div>
-          </div>
-          <div class="option_panel">
-            <div class="text_panel">FIND</div>
-            <div class="icon" id="search_icon"></div>
+        <div class="search_bar">
+            <input class="searchbar_input" placeholder='search'></input>
+            <div class ="icon" id="search_icon"></div>
           </div>
         </div>
         <div class="data_container">
@@ -105,7 +133,6 @@ function App() {
   };
 
   const showOptionsUsers = () => {
-    //TODO pasek wyszukiwania
     setMiddlePanel(
       <div id="section_panel">
         <div class="action_panel">
@@ -185,7 +212,7 @@ function App() {
       {!loggedIn ? (
         loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
       ) : (
-        mainPage(middlePanel, showOptionsUsers, showOptionsEvents, showOptionsCoupon, logOutLogin)
+        mainPage(middlePanel, showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin)
       )}
     </div>
   );

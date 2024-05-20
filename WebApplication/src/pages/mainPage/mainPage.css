@@ -197,7 +197,7 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
 }
 
 
-#search_icon{
+.search_bar #search_icon{
     width: 10%;
     height: 100%;
 }
@@ -282,5 +282,67 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
 
     width: 100%;
     height: 100%;
+
+}
+
+.add_search_menu{
+    position: absolute;
+    top: 5%;
+    height: 10%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+.add_search_menu .text_panel {
+    width: fit-content;
+    text-align: center;
+}
+
+.choose_menu{
+
+    width: 10%;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.small_panel{
+
+    width: 50%;
+    padding-left: 5%;
+
+    font-size: 1.9vh;
+
+    color: #DDF9C1;
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    
+}
+
+.small_panel:hover .small_panel_text {
+    
+    cursor: pointer;
+    color: #F5FFEC;
+
+}
+
+.small_panel .icon{
+
+    width: 50%;
+    height: 50%;
+    justify-content: center;
 
 }
