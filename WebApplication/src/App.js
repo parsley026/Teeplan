@@ -8,7 +8,7 @@ import {login, getUsers, getCoupons, getEvents} from './services/firebase.js';
 function App() {
   // State variables
   const [loggedIn, setLoggedIn] = useState(false);
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -61,7 +61,7 @@ function App() {
             <div class="small_panel_text">SEARCH</div>
             <div class="icon" id="search_icon"></div>
           </div>
-          <div class="small_panel" onClick={setMiddlePanel(<div />)}>
+          <div class="small_panel" onClick={addOptionsEvents}>
             <div class="small_panel_text">ADD</div>
             <div class="icon" id="add_icon"></div>
           </div>
@@ -69,6 +69,24 @@ function App() {
       </div>
     )
   };
+
+  const addOptionsEvents = () => {
+    setMiddlePanel(
+      <div class="add_form">
+        <div class="text_panel">ADD NEW COUPON</div>
+          <div class="outline">
+            <input class="input_field" type="text" name="name" tex placeholder="COUPON NAME"  required />
+            </div>
+            <div class="outline">
+            <textarea class="input_field" type="text" name="description" placeholder="COUPON DESCRIPTION"  required />
+            </div>
+            <div class="outline">
+            <input  class="input_field" type="text"  name="code" placeholder="COUPON CODE"   required/>
+            </div>
+            <div class="button">accept</div>
+      </div>
+    );
+  }
 
   const showOptionsEvents = () => {
     setMiddlePanel(
