@@ -7,7 +7,7 @@ import {login, getUsers, getCoupons, getEvents} from './services/firebase.js';
 
 function App() {
   // State variables
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,8 +33,15 @@ function App() {
   };
 
   const logInUser = () => {
-    login(email, password, (callback) => {
-      setLoggedIn(callback);
+    login(email, password, (isLoggedIn, errorMessage) => {
+      if (isLoggedIn) {
+        setLoggedIn(true);
+      } else {
+        console.error(errorMessage); 
+        setEmail('');
+        setPassword('');
+        alert(errorMessage); 
+      }
     });
   };
 

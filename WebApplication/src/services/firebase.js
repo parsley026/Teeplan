@@ -57,9 +57,9 @@ export function login(email, password, callback) {
       get(child(ref(database), 'users/' + credentials.user.uid)).then((snapshot) => {
         const data = snapshot.val();
         if (snapshot.exists() && data.is_admin === true) {
-          callback(true);
+          callback(true,null);
         } else {
-          callback(false);
+          callback(false, "user is not an admin");
         }
       });
     })
@@ -67,7 +67,7 @@ export function login(email, password, callback) {
       const errorCode = error.code;
       const errorMessage = error.message;
       
-      callback(false);
+      callback(false,"Incorrect login or password");
       console.error(errorCode + errorMessage);
     });
 }
