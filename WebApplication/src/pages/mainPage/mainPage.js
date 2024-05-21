@@ -1,9 +1,10 @@
 import React from 'react';
 import '../../pages/mainPage/mainPage.css';
 
-export function mainPage(middlePanel, showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin) {
+export function mainPage(middlePanel, popupPanel,showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin) {
     return (
         <div id="app_container">
+            {popupPanel}
             <div id="left_inner_container">
                 <div className="option_panel" id="users_panel" onClick={showOptionsUsers}>
                     <div className="icon" id="users_icon"></div>

@@ -19,6 +19,7 @@ function App() {
   const [events, setEvents] = useState([]);
 
   const [middlePanel, setMiddlePanel] = useState(null);
+  const [popupPanel, setPopupPanel] = useState(null)
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -105,7 +106,7 @@ function App() {
               <div class="data_field">{event.description}</div>
               <div class="data_field">{event.date}</div>
               </div>
-              <div class='trash_bin_container'></div>
+              <div class='trash_bin_container' onClick={popupAgreementPanel}></div>
             </div>
           ))}
         </div>
@@ -149,6 +150,7 @@ function App() {
     );
   }
 
+
   const showOptionsCoupon = () => {
     setMiddlePanel(
       <div id="section_panel">
@@ -166,7 +168,7 @@ function App() {
               <div class="data_field"><p>{coupon.description}</p></div>
               <div class="data_field"><p>{coupon.code}</p></div>
               </div>
-              <div class='trash_bin_container'></div>
+              <div class='trash_bin_container' onClick={popupAgreementPanel}></div>
             </div>
           ))}
         </div>
@@ -191,13 +193,33 @@ function App() {
               <div class="data_field"><p>{user.last_name}</p></div>
               <div class="data_field"><p>{user.email}</p></div>
               </div>
-              <div class='trash_bin_container'></div>
+              <div class='trash_bin_container' onClick={popupAgreementPanel}></div>
             </div>
           ))}
         </div>
       </div>
     );
   };
+
+  const turnOffAgreementPanel = () => {
+    setPopupPanel(
+      <div></div>
+    )
+  }
+
+  //TODO Dodanie usuwania :D
+
+  const popupAgreementPanel = () => {
+      setPopupPanel(
+      <div class="popup_background">
+        <div class="agreement_panel">
+          <div class="text_panel">CONFIRM DELETION</div>
+          <div class="button">YES</div>
+          <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+        </div>
+      </div>
+      )
+  }
 
   const fetchUsers = async () => {
     try {
@@ -254,7 +276,7 @@ function App() {
       {!loggedIn ? (
         loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
       ) : (
-        mainPage(middlePanel, showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin)
+        mainPage(middlePanel, popupPanel,showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin)
       )}
     </div>
   );
