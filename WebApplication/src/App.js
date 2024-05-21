@@ -106,7 +106,7 @@ function App() {
               <div class="data_field">{event.description}</div>
               <div class="data_field">{event.date}</div>
               </div>
-              <div class='trash_bin_container' onClick={popupAgreementPanel}></div>
+              <div class='trash_bin_container' onClick={popupAgreementPanelEvents}></div>
             </div>
           ))}
         </div>
@@ -168,7 +168,7 @@ function App() {
               <div class="data_field"><p>{coupon.description}</p></div>
               <div class="data_field"><p>{coupon.code}</p></div>
               </div>
-              <div class='trash_bin_container' onClick={popupAgreementPanel}></div>
+              <div class='trash_bin_container' onClick={popupAgreementPanelCoupon}></div>
             </div>
           ))}
         </div>
@@ -193,7 +193,7 @@ function App() {
               <div class="data_field"><p>{user.last_name}</p></div>
               <div class="data_field"><p>{user.email}</p></div>
               </div>
-              <div class='trash_bin_container' onClick={popupAgreementPanel}></div>
+              <div class='trash_bin_container' onClick={popupAgreementPanelUsers}></div>
             </div>
           ))}
         </div>
@@ -209,16 +209,40 @@ function App() {
 
   //TODO Dodanie usuwania :D
 
-  const popupAgreementPanel = () => {
+  const popupAgreementPanelUsers = () => {
       setPopupPanel(
       <div class="popup_background">
         <div class="agreement_panel">
-          <div class="text_panel">CONFIRM DELETION</div>
+          <div class="text_panel">CONFIRM USER DELETION</div>
           <div class="button">YES</div>
           <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
         </div>
       </div>
       )
+  }
+
+  const popupAgreementPanelCoupon = () => {
+    setPopupPanel(
+    <div class="popup_background">
+      <div class="agreement_panel">
+        <div class="text_panel">CONFIRM COUPON DELETION</div>
+        <div class="button">YES</div>
+        <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+      </div>
+    </div>
+    )
+  }
+
+  const popupAgreementPanelEvents = () => {
+    setPopupPanel(
+    <div class="popup_background">
+      <div class="agreement_panel">
+        <div class="text_panel">CONFIRM EVENT DELETION</div>
+        <div class="button">YES</div>
+        <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+      </div>
+    </div>
+    )
   }
 
   const fetchUsers = async () => {
