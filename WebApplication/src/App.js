@@ -1,309 +1,327 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {loginPage} from './pages/loginPage/loginPage.js';
 import {mainPage} from './pages/mainPage/mainPage.js';
 
-import {login, getUsers, getCoupons, getEvents} from './services/firebase.js';
+import {login, getUsers, getCoupons, getEvents, addCoupon, addEvent} from './services/firebase.js';
 
 function App() {
-  // State variables
-  const [loggedIn, setLoggedIn] = useState(false);
+    // State variables
+    const [loggedIn, setLoggedIn] = useState(true);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  const [search, setSearch] = useState('');
+    const [search, setSearch] = useState('');
 
-  const [users, setUsers] = useState([]);
-  const [coupons, setCoupons] = useState([]);
-  const [events, setEvents] = useState([]);
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
 
-  const [middlePanel, setMiddlePanel] = useState(null);
-  const [popupPanel, setPopupPanel] = useState(null)
+    const [code, setCode] = useState('');
+    const [date, setDate] = useState('');
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+    const [users, setUsers] = useState([]);
+    const [coupons, setCoupons] = useState([]);
+    const [events, setEvents] = useState([]);
 
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
+    const [middlePanel, setMiddlePanel] = useState(null);
+    const [popupPanel, setPopupPanel] = useState(null);
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
 
-  const logInUser = () => {
-    login(email, password, (isLoggedIn, errorMessage) => {
-      if (isLoggedIn) {
-        setLoggedIn(true);
-      } else {
-        console.error(errorMessage); 
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleDescriptionChange = (event) => {
+        setDescription(event.target.value);
+    };
+
+    const handleCodeChange = (event) => {
+        setCode(event.target.value);
+    };
+
+    const handleDateChange = (event) => {
+        setDate(event.target.value);
+    };
+
+    const logInUser = () => {
+        login(email, password, (isLoggedIn, errorMessage) => {
+            if (isLoggedIn) {
+                setLoggedIn(true);
+            } else {
+                console.error(errorMessage);
+                setEmail('');
+                setPassword('');
+                alert(errorMessage);
+            }
+        });
+    };
+
+    const logOutUser = () => {
+        setLoggedIn(false);
         setEmail('');
         setPassword('');
-        alert(errorMessage); 
-      }
+        setMiddlePanel(<div/>);
+        setPopupPanel(<div/>)
+    };
+
+    const showChooseMenuEvents = () => {
+        setMiddlePanel(
+            <div className="add_search_menu">
+                <div className="text_panel">EVENTS</div>
+                <div className="choose_menu">
+                    <div className="small_panel" onClick={showOptionsEvents}>
+                        <div className="small_panel_text">SEARCH</div>
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                    <div className="small_panel" onClick={addOptionsEvents}>
+                        <div className="small_panel_text">ADD</div>
+                        <div className="icon" id="add_icon"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const showChooseMenuCoupon = () => {
+        setMiddlePanel(
+            <div className="add_search_menu">
+                <div className="text_panel">COUPONS</div>
+                <div className="choose_menu">
+                    <div className="small_panel" onClick={showOptionsCoupon}>
+                        <div className="small_panel_text">SEARCH</div>
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                    <div className="small_panel" onClick={addOptionsCoupon}>
+                        <div className="small_panel_text">ADD</div>
+                        <div className="icon" id="add_icon"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const addOptionsEvents = () => {
+        setMiddlePanel(
+            <div className="add_form">
+                <div className="text_panel">ADD NEW EVENT</div>
+                <div className="outline">
+                    <input className="input_field" type="text" name="name" placeholder="EVENT NAME" required value={name} onChange={handleNameChange}/>
+                </div>
+                <div className="outline">
+                    <textarea className="input_field" type="text" name="description" placeholder="EVENT DESCRIPTION" required value={description} onChange={handleDescriptionChange}/>
+                </div>
+                <div className="outline">
+                    <input className="input_field" type="date" name="date" required value={date} onChange={handleDateChange}/>
+                </div>
+                <div className="button" onClick={addEvent(name, description, date)} >accept</div>
+            </div>
+        );
+    };
+
+    const addOptionsCoupon = () => {
+        setMiddlePanel(
+            <div className="add_form">
+                <div className="text_panel">ADD NEW COUPON</div>
+                <div className="outline">
+                    <input className="input_field" type="text" name="name" placeholder="COUPON NAME" required value={name} onChange={handleNameChange}/>
+                </div>
+                <div className="outline">
+                    <textarea className="input_field" type="text" name="description" placeholder="COUPON DESCRIPTION" required value={description} onChange={handleDescriptionChange}/>
+                </div>
+                <div className="outline">
+                    <input className="input_field" type="text" name="code" placeholder="COUPON CODE" required value={code} onChange={handleCodeChange}/>
+                </div>
+                <div className="button" onClick={addCoupon(name, description, code)} >accept</div>
+            </div>
+        );
+    };
+
+    const showOptionsEvents = () => {
+        setMiddlePanel(
+            <div id="section_panel">
+                <div className="action_panel">
+                    <div className="search_bar">
+                        <input className="searchbar_input" type="text" name="search" placeholder='search' value={search} onChange={handleSearchChange} />
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                </div>
+                <div className="data_container">
+                    {events.map((event, index) => (
+                        <div className="information_container" key={index}>
+                            <div className="data_field_container">
+                                <div className="data_field">{event.name}</div>
+                                <div className="data_field">{event.description}</div>
+                                <div className="data_field">{event.date}</div>
+                            </div>
+                            <div className='trash_bin_container' onClick={popupAgreementPanelEvents}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const showOptionsCoupon = () => {
+        setMiddlePanel(
+            <div id="section_panel">
+                <div className="action_panel">
+                    <div className="search_bar">
+                        <input className="searchbar_input" placeholder='search'></input>
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                </div>
+                <div className="data_container">
+                    {coupons.map((coupon, index) => (
+                        <div className="information_container" key={index}>
+                            <div className="data_field_container">
+                                <div className="data_field"><p>{coupon.name}</p></div>
+                                <div className="data_field"><p>{coupon.description}</p></div>
+                                <div className="data_field"><p>{coupon.code}</p></div>
+                            </div>
+                            <div className='trash_bin_container' onClick={popupAgreementPanelCoupon}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const showOptionsUsers = () => {
+        setMiddlePanel(
+            <div id="section_panel">
+                <div className="action_panel">
+                    <div className="search_bar">
+                        <input className="searchbar_input" placeholder='search'></input>
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                </div>
+                <div className="data_container">
+                    {users.map((user, index) => (
+                        <div className="information_container" key={index}>
+                            <div className="data_field_container">
+                                <div className="data_field"><p>{user.first_name}</p></div>
+                                <div className="data_field"><p>{user.last_name}</p></div>
+                                <div className="data_field"><p>{user.email}</p></div>
+                            </div>
+                            <div className='trash_bin_container' onClick={popupAgreementPanelUsers}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const popupAgreementPanelUsers = () => {
+        setPopupPanel(
+            <div className="popup_background">
+                <div className="agreement_panel">
+                    <div className="text_panel">CONFIRM USER DELETION</div>
+                    <div className="button">YES</div>
+                    <div className="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+                </div>
+            </div>
+        );
+    };
+
+    const popupAgreementPanelCoupon = () => {
+        setPopupPanel(
+            <div className="popup_background">
+                <div className="agreement_panel">
+                    <div className="text_panel">CONFIRM COUPON DELETION</div>
+                    <div className="button">YES</div>
+                    <div className="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+                </div>
+            </div>
+        );
+    };
+
+    const popupAgreementPanelEvents = () => {
+        setPopupPanel(
+            <div className="popup_background">
+                <div className="agreement_panel">
+                    <div className="text_panel">CONFIRM EVENT DELETION</div>
+                    <div className="button">YES</div>
+                    <div className="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+                </div>
+            </div>
+        );
+    };
+
+    const turnOffAgreementPanel = () => {
+        setPopupPanel(<div/>)
+    };
+
+    const fetchUsers = async () => {
+        try {
+            const fetchedUsers = await getUsers(search);
+            setUsers(fetchedUsers);
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            console.error("fetchUsers failed")
+            console.error(errorCode + errorMessage);
+        }
+    };
+
+    const fetchCoupons = async () => {
+        try {
+            const fetchedUsers = await getCoupons(search);
+            setCoupons(fetchedUsers);
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            console.error("fetchCoupons failed")
+            console.error(errorCode + errorMessage);
+        }
+    };
+
+    const fetchEvents = async () => {
+        try {
+            const fetchedUsers = await getEvents(search);
+            setEvents(fetchedUsers);
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            console.error("fetchEvents failed")
+            console.error(errorCode + errorMessage);
+        }
+        ;
+    };
+
+    function loadData() {
+        fetchUsers();
+        fetchCoupons();
+        fetchEvents();
+    }
+
+    useEffect(() => {
+        loadData();
     });
-  };
 
-  const logOutLogin = () => {
-    setMiddlePanel(<div />);
-    setEmail('');
-    setPassword('');
-    setLoggedIn(false);
-  };
-
-  const showChooseMenuEvents = () =>{
-    setMiddlePanel(
-      <div class="add_search_menu">
-        <div class="text_panel">EVENTS</div>
-        <div class="choose_menu">
-          <div class="small_panel" onClick={showOptionsEvents} >
-            <div class="small_panel_text">SEARCH</div>
-            <div class="icon" id="search_icon"></div>
-          </div>
-          <div class="small_panel" onClick={addOptionsEvents}>
-            <div class="small_panel_text">ADD</div>
-            <div class="icon" id="add_icon"></div>
-          </div>
+    return (
+        <div clas="App">
+            {!loggedIn ? (
+                loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
+            ) : (
+                mainPage(middlePanel, popupPanel, showOptionsUsers, showChooseMenuEvents, showChooseMenuCoupon, logOutUser)
+            )}
         </div>
-      </div>
-    )
-  };
-
-  const addOptionsEvents = () => {
-    setMiddlePanel(
-      <div class="add_form">
-        <div class="text_panel">ADD NEW EVENT</div>
-          <div class="outline">
-            <input class="input_field" type="text" name="name" tex placeholder="EVENT NAME"  required />
-            </div>
-            <div class="outline">
-            <textarea class="input_field" type="text" name="description" placeholder="EVENT DESCRIPTION"  required />
-            </div>
-            <div class="outline">
-            <input  class="input_field" type="date"  name="code"  required/>
-            </div>
-            <div class="button">accept</div>
-      </div>
     );
-  }
-
-  const showOptionsEvents = () => {
-    setMiddlePanel(
-      <div id="section_panel">
-          <div class="action_panel">
-          <div class="search_bar">
-              <input class="searchbar_input" placeholder='search'></input>
-              <div class ="icon" id="search_icon"></div>
-          </div>
-        </div>
-        <div class="data_container">
-          {events.map((event, index) => (
-            <div class="information_container" key={index}>
-              <div class="data_field_container">
-              <div class="data_field">{event.name}</div>
-              <div class="data_field">{event.description}</div>
-              <div class="data_field">{event.date}</div>
-              </div>
-              <div class='trash_bin_container' onClick={popupAgreementPanelEvents}></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const showChooseMenuCoupon = () =>{
-    setMiddlePanel(
-      <div class="add_search_menu">
-        <div class="text_panel">COUPONS</div>
-        <div class="choose_menu">
-          <div class="small_panel" onClick={showOptionsCoupon} >
-            <div class="small_panel_text">SEARCH</div>
-            <div class="icon" id="search_icon"></div>
-          </div>
-          <div class="small_panel" onClick={addOptionsCoupon}>
-            <div class="small_panel_text">ADD</div>
-            <div class="icon" id="add_icon"></div>
-          </div>
-        </div>
-      </div>
-    )
-  };
-
-  const addOptionsCoupon = () => {
-    setMiddlePanel(
-      <div class="add_form">
-        <div class="text_panel">ADD NEW COUPON</div>
-          <div class="outline">
-            <input class="input_field" type="text" name="name" tex placeholder="COUPON NAME"  required />
-            </div>
-            <div class="outline">
-            <textarea class="input_field" type="text" name="description" placeholder="COUPON DESCRIPTION"  required />
-            </div>
-            <div class="outline">
-            <input  class="input_field" type="text"  name="code" placeholder="COUPON CODE"   required/>
-            </div>
-            <div class="button">accept</div>
-      </div>
-    );
-  }
-
-
-  const showOptionsCoupon = () => {
-    setMiddlePanel(
-      <div id="section_panel">
-        <div class="action_panel">
-        <div class="search_bar">
-            <input class="searchbar_input" placeholder='search'></input>
-            <div class ="icon" id="search_icon"></div>
-          </div>
-        </div>
-        <div class="data_container">
-          {coupons.map((coupon, index) => (
-            <div class="information_container" key={index}>
-              <div class="data_field_container">
-              <div class="data_field"><p>{coupon.name}</p></div>
-              <div class="data_field"><p>{coupon.description}</p></div>
-              <div class="data_field"><p>{coupon.code}</p></div>
-              </div>
-              <div class='trash_bin_container' onClick={popupAgreementPanelCoupon}></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const showOptionsUsers = () => {
-    setMiddlePanel(
-      <div id="section_panel">
-        <div class="action_panel">
-          <div class="search_bar">
-              <input class="searchbar_input" placeholder='search'></input>
-              <div class ="icon" id="search_icon"></div>
-          </div>
-        </div>
-        <div class="data_container">
-          {users.map((user, index) => (
-            <div class="information_container" key={index}>
-              <div class="data_field_container">
-              <div class="data_field"><p>{user.first_name}</p></div>
-              <div class="data_field"><p>{user.last_name}</p></div>
-              <div class="data_field"><p>{user.email}</p></div>
-              </div>
-              <div class='trash_bin_container' onClick={popupAgreementPanelUsers}></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const turnOffAgreementPanel = () => {
-    setPopupPanel(
-      <div></div>
-    )
-  }
-
-  //TODO Dodanie usuwania :D
-
-  const popupAgreementPanelUsers = () => {
-      setPopupPanel(
-      <div class="popup_background">
-        <div class="agreement_panel">
-          <div class="text_panel">CONFIRM USER DELETION</div>
-          <div class="button">YES</div>
-          <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
-        </div>
-      </div>
-      )
-  }
-
-  const popupAgreementPanelCoupon = () => {
-    setPopupPanel(
-    <div class="popup_background">
-      <div class="agreement_panel">
-        <div class="text_panel">CONFIRM COUPON DELETION</div>
-        <div class="button">YES</div>
-        <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
-      </div>
-    </div>
-    )
-  }
-
-  const popupAgreementPanelEvents = () => {
-    setPopupPanel(
-    <div class="popup_background">
-      <div class="agreement_panel">
-        <div class="text_panel">CONFIRM EVENT DELETION</div>
-        <div class="button">YES</div>
-        <div class="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
-      </div>
-    </div>
-    )
-  }
-
-  const fetchUsers = async () => {
-    try {
-      const fetchedUsers = await getUsers(search);
-      setUsers(fetchedUsers);
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.error("fetchUsers faild")
-      console.error(errorCode + errorMessage);
-    }
-  };
-
-  const fetchCoupons = async () => {
-    try {
-      const fetchedUsers = await getCoupons(search);
-      setCoupons(fetchedUsers);
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.error("fetchCoupons faild")
-      console.error(errorCode + errorMessage);
-    }
-  };
-
-  const fetchEvents = async () => {
-    try {
-      const fetchedUsers = await getEvents(search);
-      setEvents(fetchedUsers);
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.error("fetchEvents faild")
-      console.error(errorCode + errorMessage);
-    }
-  };
-
-  function loadData() {
-    fetchUsers();
-    fetchCoupons();
-    fetchEvents();
-  }
-
-
-  useEffect(() => {
-    loadData();
-  });
-
-  return (
-    <div className="App">
-      {!loggedIn ? (
-        loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
-      ) : (
-        mainPage(middlePanel, popupPanel,showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin)
-      )}
-    </div>
-  );
-}
+};
 
 export default App;

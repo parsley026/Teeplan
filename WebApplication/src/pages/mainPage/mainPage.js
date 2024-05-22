@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../pages/mainPage/mainPage.css';
 
-export function mainPage(middlePanel, popupPanel,showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutLogin) {
+export function mainPage(middlePanel, popupPanel,showOptionsUsers, showChooseMenuEvents,showChooseMenuCoupon, logOutUser) {
     return (
         <div id="app_container">
             {popupPanel}
@@ -23,7 +23,7 @@ export function mainPage(middlePanel, popupPanel,showOptionsUsers, showChooseMen
                 {middlePanel}
             </div>
             <div id="right_inner_container">
-                <div className="option_panel" id="logOut_panel" onClick={logOutLogin}>
+                <div className="option_panel" id="logOut_panel" onClick={logOutUser}>
                     <div className="text_panel_right"><p>LOG OUT</p></div>
                     <div className="icon" id="logOut_icon"></div>
                 </div>

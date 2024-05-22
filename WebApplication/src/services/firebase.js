@@ -1,16 +1,17 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, get, child } from "firebase/database";
+import {initializeApp} from "firebase/app";
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import {getDatabase, ref, get, child} from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCgON90z2wvYH0sdP5aMSiFIXm9yU7WiG0",
-  authDomain: "fir-tutorial-e7fdf.firebaseapp.com",
-  databaseURL: "https://fir-tutorial-e7fdf-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "fir-tutorial-e7fdf",
-  storageBucket: "fir-tutorial-e7fdf.appspot.com",
-  messagingSenderId: "382392829369",
-  appId: "1:382392829369:web:22655e3d93f6d284da2268"
+    apiKey: "AIzaSyBTkF0LL1z646NYJlUkWVvbltSumjXUHn8",
+    authDomain: "fir-tutorial2-64d7b.firebaseapp.com",
+    databaseURL: "https://fir-tutorial2-64d7b-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fir-tutorial2-64d7b",
+    storageBucket: "fir-tutorial2-64d7b.appspot.com",
+    messagingSenderId: "936912720414",
+    appId: "1:936912720414:web:811a0d48dbc74a2f2f540f"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -23,7 +24,7 @@ const database = getDatabase(app);
 // const register = document.getElementById('register');
 // register.addEventListener("click", function(event) {
 //   event.preventDefault();
-  
+
 //   const first_name = "none";
 //   const last_name = "none";
 //   const is_admin = false;
@@ -52,86 +53,111 @@ const database = getDatabase(app);
 
 // Initialize loginAdmin
 export function login(email, password, callback) {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((credentials) => {
-      get(child(ref(database), 'users/' + credentials.user.uid)).then((snapshot) => {
-        const data = snapshot.val();
-        if (snapshot.exists() && data.is_admin === true) {
-          callback(true,null);
-        } else {
-          callback(false, "user is not an admin");
-        }
-      });
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      
-      callback(false,"Incorrect login or password");
-      console.error(errorCode + errorMessage);
-    });
+    signInWithEmailAndPassword(auth, email, password)
+        .then((credentials) => {
+            get(child(ref(database), 'users/' + credentials.user.uid)).then((snapshot) => {
+                const data = snapshot.val();
+                if (snapshot.exists() && data.is_admin === true) {
+                    callback(true, null);
+                } else {
+                    callback(false, "user is not an admin");
+                }
+            });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            callback(false, "Incorrect login or password");
+            console.error(errorCode + errorMessage);
+        });
 }
 
 // Initialize getUsers
 export async function getUsers() {
-  try {
-    const snapshot = await get(child(ref(database), 'users'));
-    const users = [];
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        users.push(childSnapshot.val());
-      });
-    }
-    return users;
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    try {
+        const snapshot = await get(child(ref(database), 'users'));
+        const users = [];
+        if (snapshot.exists()) {
+            snapshot.forEach((childSnapshot) => {
+                users.push(childSnapshot.val());
+            });
+        }
+        return users;
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-    console.error("getUsers faild")
-    console.error(errorCode + errorMessage);
-    return [];
-  }
+        console.error("getUsers failed")
+        console.error(errorCode + errorMessage);
+        return [];
+    }
 }
 
 // Initialize getCoupons
 export async function getCoupons() {
-  try {
-    const snapshot = await get(child(ref(database), 'coupons'));
-    const coupons = [];
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        coupons.push(childSnapshot.val());
-      });
-    }
-    return coupons;
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    try {
+        const snapshot = await get(child(ref(database), 'coupons'));
+        const coupons = [];
+        if (snapshot.exists()) {
+            snapshot.forEach((childSnapshot) => {
+                coupons.push(childSnapshot.val());
+            });
+        }
+        return coupons;
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-    console.error("getUsers faild")
-    console.error(errorCode + errorMessage);
-    return [];
-  }
+        console.error("getUsers failed")
+        console.error(errorCode + errorMessage);
+        return [];
+    }
 }
 
 // Initialize getEvents
 export async function getEvents() {
-  try {
-    const snapshot = await get(child(ref(database), 'events'));
-    const events = [];
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        events.push(childSnapshot.val());
-      });
-    }
-    return events;
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    try {
+        const snapshot = await get(child(ref(database), 'events'));
+        const events = [];
+        if (snapshot.exists()) {
+            snapshot.forEach((childSnapshot) => {
+                events.push(childSnapshot.val());
+            });
+        }
+        return events;
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-    console.error("getEvents faild")
-    console.error(errorCode + errorMessage);
-    return [];
-  }
+        console.error("getEvents failed")
+        console.error(errorCode + errorMessage);
+        return [];
+    }
 }
 
+// Initialize addCoupon
+export function addCoupon(name, description, code) {
+    const data = {
+        name: name,
+        description: description,
+        code: code,
+    };
+
+    alert(data.name)
+    alert(data.description)
+    alert(data.code)   
+}
+
+// Initialize addEvent
+export function addEvent(name, description, date) {
+    const data = {
+        name: name,
+        description: description,
+        code: date,
+    };
+
+    alert(data.name)
+    alert(data.description)
+    alert(data.date) 
+}
