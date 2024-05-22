@@ -3,13 +3,13 @@ import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {getDatabase, ref, get, child} from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBTkF0LL1z646NYJlUkWVvbltSumjXUHn8",
-    authDomain: "fir-tutorial2-64d7b.firebaseapp.com",
-    databaseURL: "https://fir-tutorial2-64d7b-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "fir-tutorial2-64d7b",
-    storageBucket: "fir-tutorial2-64d7b.appspot.com",
-    messagingSenderId: "936912720414",
-    appId: "1:936912720414:web:811a0d48dbc74a2f2f540f"
+    apiKey: "AIzaSyAu0Fq7SX2Dne8apXo1eFUOsEK0aWEMbls",
+    authDomain: "fir-tutorial-3-ee572.firebaseapp.com",
+    databaseURL: "https://fir-tutorial-3-ee572-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fir-tutorial-3-ee572",
+    storageBucket: "fir-tutorial-3-ee572.appspot.com",
+    messagingSenderId: "1076680422069",
+    appId: "1:1076680422069:web:9020d09e5d154697ac84fc"
 };
 
 
