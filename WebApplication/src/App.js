@@ -2,12 +2,15 @@ import React, {useState, useEffect} from 'react';
 
 import {loginPage} from './pages/loginPage/loginPage.js';
 import {mainPage} from './pages/mainPage/mainPage.js';
+import { couponFormPage } from './pages/addCouponPage/couponFormPage.js';
 
 import {login, getUsers, getCoupons, getEvents, addCoupon, addEvent} from './services/firebase.js';
 
 function App() {
     // State variables
     const [loggedIn, setLoggedIn] = useState(true);
+
+    const [isCouponIn, setCouponIn] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -76,6 +79,21 @@ function App() {
         setPopupPanel(<div/>)
     };
 
+    const addNewCoupon = () =>{
+        console.log('Function addNewCoupon called');
+        console.log('Current Name:', name);
+        console.log('Current Description:', description);
+        console.log('Current Code:', code);
+
+        //addCoupon(name,description,code);
+
+        setName('')
+        setDescription('');
+        setCode('');
+        setCouponIn(false)
+        showOptionsCoupon();
+    }
+
     const showChooseMenuEvents = () => {
         setMiddlePanel(
             <div className="add_search_menu">
@@ -85,7 +103,7 @@ function App() {
                         <div className="small_panel_text">SEARCH</div>
                         <div className="icon" id="search_icon"></div>
                     </div>
-                    <div className="small_panel" onClick={addOptionsEvents}>
+                    <div className="small_panel">
                         <div className="small_panel_text">ADD</div>
                         <div className="icon" id="add_icon"></div>
                     </div>
@@ -93,6 +111,11 @@ function App() {
             </div>
         );
     };
+
+    const changePageToAddCouponPage = () => {
+        console.log("here");
+        setCouponIn(true);
+    }
 
     const showChooseMenuCoupon = () => {
         setMiddlePanel(
@@ -103,8 +126,8 @@ function App() {
                         <div className="small_panel_text">SEARCH</div>
                         <div className="icon" id="search_icon"></div>
                     </div>
-                    <div className="small_panel" onClick={addOptionsCoupon}>
-                        <div className="small_panel_text">ADD</div>
+                    <div className="small_panel" onClick={changePageToAddCouponPage}  >
+                        <div className="small_panel_text" >ADD</div>
                         <div className="icon" id="add_icon"></div>
                     </div>
                 </div>
@@ -112,41 +135,6 @@ function App() {
         );
     };
 
-    const addOptionsEvents = () => {
-        setMiddlePanel(
-            <div className="add_form">
-                <div className="text_panel">ADD NEW EVENT</div>
-                <div className="outline">
-                    <input className="input_field" type="text" name="name" placeholder="EVENT NAME" required value={name} onChange={handleNameChange}/>
-                </div>
-                <div className="outline">
-                    <textarea className="input_field" type="text" name="description" placeholder="EVENT DESCRIPTION" required value={description} onChange={handleDescriptionChange}/>
-                </div>
-                <div className="outline">
-                    <input className="input_field" type="date" name="date" required value={date} onChange={handleDateChange}/>
-                </div>
-                <div className="button" onClick={addEvent(name, description, date)} >accept</div>
-            </div>
-        );
-    };
-
-    const addOptionsCoupon = () => {
-        setMiddlePanel(
-            <div className="add_form">
-                <div className="text_panel">ADD NEW COUPON</div>
-                <div className="outline">
-                    <input className="input_field" type="text" name="name" placeholder="COUPON NAME" required value={name} onChange={handleNameChange}/>
-                </div>
-                <div className="outline">
-                    <textarea className="input_field" type="text" name="description" placeholder="COUPON DESCRIPTION" required value={description} onChange={handleDescriptionChange}/>
-                </div>
-                <div className="outline">
-                    <input className="input_field" type="text" name="code" placeholder="COUPON CODE" required value={code} onChange={handleCodeChange}/>
-                </div>
-                <div className="button" onClick={addCoupon(name, description, code)} >accept</div>
-            </div>
-        );
-    };
 
     const showOptionsEvents = () => {
         setMiddlePanel(
@@ -174,6 +162,7 @@ function App() {
     };
 
     const showOptionsCoupon = () => {
+        setCouponIn(false)
         setMiddlePanel(
             <div id="section_panel">
                 <div className="action_panel">
@@ -314,12 +303,16 @@ function App() {
     });
 
     return (
-        <div clas="App">
-            {!loggedIn ? (
-                loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
-            ) : (
+        <div className="App">
+        {!loggedIn ? (
+            loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
+        ) : (
+            !isCouponIn ? (
                 mainPage(middlePanel, popupPanel, showOptionsUsers, showChooseMenuEvents, showChooseMenuCoupon, logOutUser)
-            )}
+            ) : (
+                couponFormPage(name, handleNameChange, description, handleDescriptionChange, code, handleCodeChange, addNewCoupon,showOptionsCoupon)
+            )
+        )}
         </div>
     );
 };

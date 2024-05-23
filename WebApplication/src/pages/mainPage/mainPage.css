@@ -483,6 +483,16 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     width: 60%;
 }
 
+.buttons_container{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+}
+
+
 #red_button{
     background-color: #ECB3B3;
 }

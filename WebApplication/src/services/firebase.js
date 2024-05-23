@@ -138,15 +138,15 @@ export async function getEvents() {
 
 // Initialize addCoupon
 export function addCoupon(name, description, code) {
-    const data = {
+    var data = {
         name: name,
         description: description,
         code: code,
     };
-
-    alert(data.name)
-    alert(data.description)
-    alert(data.code)   
+    console.log("here");
+    console.log(data.name);
+    console.log(data.description);
+    console.log(data.code)   ;
 }
 
 // Initialize addEvent
@@ -157,7 +157,7 @@ export function addEvent(name, description, date) {
         code: date,
     };
 
-    alert(data.name)
-    alert(data.description)
-    alert(data.date) 
+    console.log(data.name)
+    console.log(data.description)
+    console.log(data.date) 
 }
