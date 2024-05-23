@@ -143,10 +143,9 @@ export function addCoupon(name, description, code) {
         description: description,
         code: code,
     };
-    console.log("here");
     console.log(data.name);
     console.log(data.description);
-    console.log(data.code)   ;
+    console.log(data.code);
 }
 
 // Initialize addEvent

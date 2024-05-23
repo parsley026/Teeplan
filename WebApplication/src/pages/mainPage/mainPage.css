@@ -496,3 +496,7 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
 #red_button{
     background-color: #ECB3B3;
 }
+
+#red_button:hover{
+    background-color: #f7e2e2;
+}

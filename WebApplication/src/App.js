@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 
 import {loginPage} from './pages/loginPage/loginPage.js';
 import {mainPage} from './pages/mainPage/mainPage.js';
-import { couponFormPage } from './pages/addCouponPage/couponFormPage.js';
+import { couponFormPage } from './pages/addPages/couponFormPage.js';
+import { eventFormPage } from './pages/addPages/eventFormPage.js';
 
 import {login, getUsers, getCoupons, getEvents, addCoupon, addEvent} from './services/firebase.js';
 
@@ -11,6 +12,7 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(true);
 
     const [isCouponIn, setCouponIn] = useState(false);
+    const [isEventIn, setEventIn] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -80,18 +82,27 @@ function App() {
     };
 
     const addNewCoupon = () =>{
-        console.log('Function addNewCoupon called');
-        console.log('Current Name:', name);
-        console.log('Current Description:', description);
-        console.log('Current Code:', code);
-
-        //addCoupon(name,description,code);
+        addCoupon(name,description,code);
 
         setName('')
         setDescription('');
         setCode('');
         setCouponIn(false)
         showOptionsCoupon();
+    }
+
+    const addNewEvent = () => {
+
+        addEvent(name,description,date);
+        setName('')
+        setDescription('');
+        setDate('');
+        setEventIn(false)
+        showOptionsEvents();
+
+    }
+    const changePageToAddEventPage = () => {
+        setEventIn(true);
     }
 
     const showChooseMenuEvents = () => {
@@ -103,7 +114,7 @@ function App() {
                         <div className="small_panel_text">SEARCH</div>
                         <div className="icon" id="search_icon"></div>
                     </div>
-                    <div className="small_panel">
+                    <div className="small_panel" onClick={changePageToAddEventPage}>
                         <div className="small_panel_text">ADD</div>
                         <div className="icon" id="add_icon"></div>
                     </div>
@@ -113,9 +124,9 @@ function App() {
     };
 
     const changePageToAddCouponPage = () => {
-        console.log("here");
         setCouponIn(true);
     }
+
 
     const showChooseMenuCoupon = () => {
         setMiddlePanel(
@@ -137,6 +148,7 @@ function App() {
 
 
     const showOptionsEvents = () => {
+        setEventIn(false);
         setMiddlePanel(
             <div id="section_panel">
                 <div className="action_panel">
@@ -304,15 +316,19 @@ function App() {
 
     return (
         <div className="App">
-        {!loggedIn ? (
-            loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
-        ) : (
-            !isCouponIn ? (
-                mainPage(middlePanel, popupPanel, showOptionsUsers, showChooseMenuEvents, showChooseMenuCoupon, logOutUser)
+            {!loggedIn ? (
+                loginPage(email, password, handleEmailChange, handlePasswordChange, logInUser)
             ) : (
-                couponFormPage(name, handleNameChange, description, handleDescriptionChange, code, handleCodeChange, addNewCoupon,showOptionsCoupon)
-            )
-        )}
+                isCouponIn ? (
+                    couponFormPage(name, handleNameChange, description, handleDescriptionChange, code, handleCodeChange, addNewCoupon, showOptionsCoupon)
+                ) : (
+                    isEventIn ? (
+                        eventFormPage(name, handleNameChange, description, handleDescriptionChange, date, handleDateChange, addNewEvent, showOptionsEvents)
+                    ) : (
+                        mainPage(middlePanel, popupPanel, showOptionsUsers, showChooseMenuEvents, showChooseMenuCoupon, logOutUser)
+                    )
+                )
+            )}
         </div>
     );
 };
