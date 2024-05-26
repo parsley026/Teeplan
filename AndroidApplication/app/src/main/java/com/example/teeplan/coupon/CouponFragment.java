@@ -82,25 +82,25 @@ public class CouponFragment extends Fragment {
     }
 
     private void setUpCouponModels() {
-        couponModels.add(new CouponModel("Zabka", "piwsko za darmo", "123981"));
-        couponModels.add(new CouponModel("Lidl", "piwsko za pol-darmo", "542123"));
+        couponModels.add(new CouponModel("Żabka", "piwsko za darmo", "123981"));
+        couponModels.add(new CouponModel("Lidl", "piwsko za pól-darmo", "542123"));
         couponModels.add(new CouponModel("Juwenalia", "juwenalia za darmo", "942125"));
 
-        couponModels.add(new CouponModel("Zabka", "piwsko za darmo", "123981"));
-        couponModels.add(new CouponModel("Lidl", "piwsko za pol-darmo", "542123"));
+        couponModels.add(new CouponModel("Żabka", "piwsko za darmo", "123981"));
+        couponModels.add(new CouponModel("Lidl", "piwsko za pól-darmo", "542123"));
         couponModels.add(new CouponModel("Juwenalia", "juwenalia za darmo", "942125"));
 
-        couponModels.add(new CouponModel("Zabka", "piwsko za darmo", "123981"));
-        couponModels.add(new CouponModel("Lidl", "piwsko za pol-darmo", "542123"));
+        couponModels.add(new CouponModel("Żabka", "piwsko za darmo", "123981"));
+        couponModels.add(new CouponModel("Lidl", "piwsko za pól-darmo", "542123"));
         couponModels.add(new CouponModel("Juwenalia", "juwenalia za darmo", "942125"));
 
-        couponModels.add(new CouponModel("Zabka", "piwsko za darmo", "123981"));
-        couponModels.add(new CouponModel("Lidl", "piwsko za pol-darmo", "542123"));
+        couponModels.add(new CouponModel("Żabka", "piwsko za darmo", "123981"));
+        couponModels.add(new CouponModel("Lidl", "piwsko za pól-darmo", "542123"));
         couponModels.add(new CouponModel("Juwenalia", "juwenalia za darmo", "942125"));
 
 
-        couponModels.add(new CouponModel("Zabka", "piwsko za darmo", "123981"));
-        couponModels.add(new CouponModel("Lidl", "piwsko za pol-darmo", "542123"));
+        couponModels.add(new CouponModel("Żabka", "piwsko za darmo", "123981"));
+        couponModels.add(new CouponModel("Lidl", "piwsko za pól-darmo", "542123"));
         couponModels.add(new CouponModel("Juwenalia", "juwenalia za darmo", "942125"));
     }
 }
