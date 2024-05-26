@@ -1,7 +1,9 @@
 package com.example.teeplan;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.Intent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    private static final String TIMER_RUNNING_KEY = "com.example.teeplan.buttonPref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        resetTimerToOriginalState();
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragemnt(new HomeFragment());
@@ -57,5 +63,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void resetTimerToOriginalState() {
+        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(TIMER_RUNNING_KEY, false).apply();
     }
 }
