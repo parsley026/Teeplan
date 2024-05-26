@@ -1,9 +1,8 @@
 package com.example.teeplan;
 
-import android.os.Bundle;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.teeplan.coupon.CouponFragment;
 import com.example.teeplan.databinding.ActivityMainBinding;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.home) {
                 replaceFragemnt(new HomeFragment());
             } else if (id == R.id.todo) {
-               replaceFragemnt(new ToDoFragment());
+                replaceFragemnt(new ToDoFragment());
             } else if (id == R.id.timer) {
                 replaceFragemnt(new TimerFragment());
             } else if (id == R.id.coupon) {
