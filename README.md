@@ -12,8 +12,7 @@
 
 4. Otwórz sklonowane repozytorium w Visual Studio Code
 
-Krok 4: Uruchomienie projektu:
+5: Uruchomienie projektu:
    - W folderze `Webapplication` wpisz komendę:  npm start
-
    - Projekt będzie dostępny pod adresem:
      `http://localhost:3000`
