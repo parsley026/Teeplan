@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/colorWhiteHint" android:state_checked="false" />
+
+    <!-- Kolor przycisku w stanie zaznaczonym (aktywnym) -->
+    <item android:color="@color/colorWhite" android:state_checked="true" />
+
+    <!-- Domyślny kolor przycisku -->
+    <item android:color="@color/colorWhiteHint" />
+</selector>
