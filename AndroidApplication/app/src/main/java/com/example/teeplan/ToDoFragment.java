@@ -1,5 +1,7 @@
 package com.example.teeplan;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,7 +139,7 @@ public class ToDoFragment extends Fragment {
         builder.setView(dialogView);
 
         AlertDialog dialog = builder.create();
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         EditText taskEditText = dialogView.findViewById(R.id.newTaskText);
         Button addButton = dialogView.findViewById(R.id.newTaskButton);
 
@@ -159,5 +161,6 @@ public class ToDoFragment extends Fragment {
             }
         });
         dialog.show();
+
     }
 }
