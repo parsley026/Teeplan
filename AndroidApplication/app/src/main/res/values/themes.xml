@@ -2,7 +2,5 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Teeplan" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="font">@font/inter_bold</item>
     </style>
 </resources>
