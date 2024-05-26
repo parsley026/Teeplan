@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teeplan.Adapter.ToDoAdapter;
 import com.example.teeplan.ToDoModel.ToDoModel;
-
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 
@@ -58,6 +56,7 @@ public class ToDoFragment extends Fragment {
         taskView.setLayoutManager(new LinearLayoutManager(getContext()));
         tasksAdapter = new ToDoAdapter(this);
         taskView.setAdapter(tasksAdapter);
+        loadToDoListFromFile();
 
         SpeedDialView speedDialView = view.findViewById(R.id.speedDial);
         speedDialView.setMainFabClosedBackgroundColor(getResources().getColor(R.color.colorGreenLighter));
@@ -99,6 +98,7 @@ public class ToDoFragment extends Fragment {
                 int id = actionItem.getId();
                 if (id == R.id.fab_save) {
                     saveToDoListToFile();
+                    Toast.makeText(getContext(), "List saved", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.fab_delete) {
                     taskList.clear();
@@ -108,6 +108,7 @@ public class ToDoFragment extends Fragment {
                     return true;
                 } else if (id == R.id.fab_load) {
                     loadToDoListFromFile();
+                    Toast.makeText(getContext(), "List loaded", Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;
@@ -140,6 +141,7 @@ public class ToDoFragment extends Fragment {
                     tasksAdapter.setTask(taskList);
                     tasksAdapter.notifyDataSetChanged();
                     dialog.dismiss();
+                    saveToDoListToFile();
                 } else {
                     Toast.makeText(getContext(), "Please enter a task", Toast.LENGTH_SHORT).show();
                 }
@@ -148,15 +150,16 @@ public class ToDoFragment extends Fragment {
         dialog.show();
     }
 
-    private void saveToDoListToFile() {
+    public void saveToDoListToFile() {
         FileOutputStream fos = null;
         try {
             File file = new File(getContext().getFilesDir(), "todolist.txt");
             fos = new FileOutputStream(file);
             for (ToDoModel task : taskList) {
-                fos.write((task.getTask() + "\n").getBytes());
+                String line = task.getTask() + "," + task.getStatus() + "\n";
+                fos.write(line.getBytes());
             }
-            Toast.makeText(getContext(), "List saved", Toast.LENGTH_SHORT).show();
+
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error saving list", Toast.LENGTH_SHORT).show();
@@ -180,14 +183,17 @@ public class ToDoFragment extends Fragment {
             String line;
             taskList.clear();
             while ((line = reader.readLine()) != null) {
-                ToDoModel task = new ToDoModel();
-                task.setTask(line);
-                task.setStatus(0); // Assuming a default status for loaded tasks
-                taskList.add(task);
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    ToDoModel task = new ToDoModel();
+                    task.setTask(parts[0]);
+                    task.setStatus(Integer.parseInt(parts[1]));
+                    taskList.add(task);
+                }
             }
             tasksAdapter.setTask(taskList);
             tasksAdapter.notifyDataSetChanged();
-            Toast.makeText(getContext(), "List loaded", Toast.LENGTH_SHORT).show();
+
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error loading list", Toast.LENGTH_SHORT).show();
