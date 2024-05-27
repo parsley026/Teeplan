@@ -1,0 +1,502 @@
+body {
+    background-color:#363636 ;
+    font-family: 'interregular';
+
+    display: flex;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.option_panel {
+
+    width: 100%;    
+    height: 6vh;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.option_panel:hover .text_panel{
+    cursor:pointer;
+    color: white;
+}
+
+.text_panel {
+    width: 20vw;
+    height: 6vh;
+    color: #DDF9C1;
+    font-size: 3.5vh;
+    text-align: center;
+
+    align-items: center;
+
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+}
+
+.text_panel_right{
+    width: 20vw;
+    height: 6vh;
+    color: #DDF9C1;
+    font-size: 3.5vh;
+
+    align-items:center;
+    justify-content: end;
+
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+}
+.text_panel_right:hover{
+    cursor:pointer;
+    color: white;
+}
+.icon {
+    width: 6vw;
+    height: 6vh;
+    background-size: contain;
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+}
+ 
+.icon:hover{
+    cursor:pointer;
+}
+
+#logOut_icon {
+    background-image: url("../../assets/logoutIcon_green.png");
+}
+
+#logOut_panel:hover #logOut_icon{
+    background-image: url("../../assets/logoutIcon_white.png");
+}
+
+#users_icon{
+    background-image: url("../../assets/personIcon_green.png");
+}
+
+#users_panel:hover #users_icon{
+    background-image: url("../../assets/personIcon_white.png");
+}
+
+#events_icon{
+    background-image: url("../../assets/bookmarkIcon_green.png");
+}
+
+#events_panel:hover #events_icon{
+    background-image: url("../../assets/bookmarkIcon_white.png");
+}
+
+#coupons_icon{
+    background-image: url("../../assets/loyaltyCardIcon_green.png");
+}
+
+#coupons_panel:hover #coupons_icon{
+    background-image: url("../../assets/loyaltyCardIcon_white.png");
+}
+
+#search_icon{
+    background-image: url("../../assets/searchIcon_green.png");
+}
+
+#search_panel:hover #search_icon{
+    background-image: url("../../assets/searchIcon_white.png");
+}
+
+#add_icon{
+    background-image: url("../../assets/addIcon_green.png");
+}
+
+#add_panel:hover #add_icon{
+    background-image: url("../../assets/addIcon_white.png");
+}
+
+#left_inner_container{ 
+    top:0;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+#middle_inner_container{
+    top:0;
+    left:15%; 
+    width: 70%;
+    height: 100%;
+    position:fixed;
+}
+
+#right_inner_container{
+    top:0;
+    left: 85%;
+    width: 15%;
+    height: 100%;
+    position:fixed;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.action_panel {
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.search_bar{
+    width: 50%;
+    height: 20%;
+
+    display: flex;
+
+    border-radius: 1vh;
+    border: 0.01vh solid #F5FFEC;
+
+}
+/*
+@From Antek 
+For future reference, it cannot be done like this: searchbar_input:focus etc.
+ because for some reason it does not work, do not change it. 🐱
+*/
+.search_bar input:focus{
+    outline: none;
+}
+.search_bar input::placeholder{
+    color: #F5FFEC;
+    font-family: 'interregular';
+}
+.searchbar_input{
+    width: 100%;
+    height: 100%;
+
+    background-color:transparent;
+    border: none;
+    color: #F5FFEC;
+
+    font-size: 3.5vh;
+    font-family: 'interregular';
+    
+}
+
+
+.search_bar #search_icon{
+    width: 10%;
+    height: 100%;
+}
+
+.data_container {
+    width: 100%;
+    height: 80%;
+    
+    justify-content: space-between;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    padding-left: 4%;
+    padding-right: 4%;
+
+    padding-top: 0;
+    padding-bottom: 0;
+
+    box-sizing: border-box;
+}
+
+
+.information_container{
+    width: 40%;
+    height: 20%;
+    position: relative;
+
+    
+    display: flex;
+    flex-direction: row;
+
+    border: 0.01vh solid #DDF9C1;
+    border-radius: 3vh;
+}
+
+.data_field_container{
+    width: 50%;
+    height: 100%;
+}
+
+.data_field {
+    padding-left: 2vh;
+    padding-top: 1vh;
+    color: #DDF9C1;
+    border-bottom: #DDF9C1 solid 0.01vh;
+
+}
+
+.data_field p {
+    padding: 0.5vh;
+    font-size: 2vh;
+}
+
+
+.trash_bin_container{
+
+    width: 10%;
+    height: 30%;
+
+    position:absolute;
+
+    right: 0;
+    bottom: 0;
+
+
+    background-size: contain;
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+    
+    background-image: url("../../assets/trashBinIcon_green.png");
+
+    cursor: pointer;
+}
+.trash_bin_container:hover{
+    background-image: url("../../assets/trashBinIcon_white.png");
+}
+
+
+#section_panel {
+
+    width: 100%;
+    height: 100%;
+
+}
+
+.add_search_menu{
+    position: absolute;
+    top: 5%;
+    height: 10%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+.add_search_menu .text_panel {
+    width: fit-content;
+    text-align: center;
+}
+
+.choose_menu{
+
+    width: 10%;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.small_panel{
+
+    width: 50%;
+    padding-left: 5%;
+
+    font-size: 1.9vh;
+
+    color: #DDF9C1;
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    
+}
+
+.small_panel:hover .small_panel_text {
+    
+    cursor: pointer;
+    color: #F5FFEC;
+
+}
+
+.small_panel .icon{
+
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+
+}
+
+
+.add_form{
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10%;
+    
+}
+
+.outline {
+
+    width: 50%;
+    border: solid  1px #C1DBB3;
+    border-radius: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outline input{   
+
+     height: fit-content;
+
+}
+
+.outline textarea{
+    height: 20vh;
+}
+
+.add_form .text_panel{ 
+    width: fit-content;
+    text-align: center;
+}
+
+.input_field{
+
+    height: 5vh;
+    padding: auto;
+    border-radius: 1vh;
+    display: flex;
+    width: 100%;
+
+    align-items: center;
+    font-family: 'interregular';
+    background-color:transparent;
+    border: none;
+    color: #F5FFEC;
+    font-size: 3.5vh;
+
+}
+
+.input_field:focus{
+  outline: none;
+}
+
+.input_field::placeholder {
+  font-size: 3.5vh;
+  font-family: 'interregular';
+  color: #F5FFEC;
+}
+
+.button{
+
+    height: 5vh;
+    width: 30%;
+
+    border-radius: 1vh;
+    background-color: #C1DBB3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5vh;
+}
+
+.button p{
+    text-align: center;
+    top: 25%;
+  }
+
+.button:hover{
+    background-color: #F8FFF4;
+    cursor: pointer;
+}
+
+.popup_background{
+    position: absolute;
+
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 70%);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 8%;
+}
+
+.agreement_panel{
+    border: black 0.3vh solid;
+    border-radius: 1vh;
+    width: 30%;
+    height: 30%;
+    background-color: #3E413C;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10%;
+}
+
+.agreement_panel .text_panel{
+    width: fit-content;
+}
+
+.agreement_panel .button{
+    width: 60%;
+}
+
+.buttons_container{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+}
+
+
+#red_button{
+    background-color: #ECB3B3;
+}
+
+#red_button:hover{
+    background-color: #f7e2e2;
+}
