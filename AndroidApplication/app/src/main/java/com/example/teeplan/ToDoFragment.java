@@ -1,5 +1,7 @@
 package com.example.teeplan;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,25 +9,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teeplan.Adapter.ToDoAdapter;
 import com.example.teeplan.ToDoModel.ToDoModel;
-
 import com.leinardi.android.speeddial.SpeedDialActionItem;
-import com.leinardi.android.speeddial.SpeedDialOverlayLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +38,6 @@ public class ToDoFragment extends Fragment {
     private ToDoAdapter tasksAdapter;
     private List<ToDoModel> taskList;
     private ImageButton addTask;
-    private RelativeLayout newTask;
 
     @Nullable
     @Override
@@ -45,7 +48,6 @@ public class ToDoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showAddTaskDialog();
-
             }
         });
         taskList = new ArrayList<>();
@@ -54,36 +56,19 @@ public class ToDoFragment extends Fragment {
         taskView.setLayoutManager(new LinearLayoutManager(getContext()));
         tasksAdapter = new ToDoAdapter(this);
         taskView.setAdapter(tasksAdapter);
-
-
-
-        ToDoModel task = new ToDoModel();
-        task.setTask("test task");
-        task.setStatus(0);
-        task.setId(1);
-
-        taskList.add(task);
-        taskList.add(task);
-        taskList.add(task);
-        taskList.add(task);
-        taskList.add(task);
-
-        tasksAdapter.setTask(taskList);
-
+        loadToDoListFromFile();
 
         SpeedDialView speedDialView = view.findViewById(R.id.speedDial);
         speedDialView.setMainFabClosedBackgroundColor(getResources().getColor(R.color.colorGreenLighter));
         speedDialView.setMainFabOpenedBackgroundColor(getResources().getColor(R.color.colorGreenLighter));
-        speedDialView.setDrawingCacheBackgroundColor(getResources().getColor(R.color.colorTransparent));
-        speedDialView.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
 
         speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.fab_save, R.drawable.ic_save)
                         .setLabel("Save List")
-                        .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter)) // Set FAB background color to transparent
+                        .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter))
                         .setFabImageTintColor(ContextCompat.getColor(getContext(), R.color.colorBlackOlive))
-                        .setLabelBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorGreenLighter)) // Set label background color to transparent
-                        .setLabelColor(ContextCompat.getColor(getContext(),R.color.colorBlackOlive))
+                        .setLabelBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter))
+                        .setLabelColor(ContextCompat.getColor(getContext(), R.color.colorBlackOlive))
                         .create()
         );
 
@@ -91,9 +76,9 @@ public class ToDoFragment extends Fragment {
                 new SpeedDialActionItem.Builder(R.id.fab_delete, R.drawable.ic_delete)
                         .setLabel("Delete List")
                         .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter))
-                        .setFabImageTintColor(ContextCompat.getColor(getContext(),  R.color.colorBlackOlive))
-                        .setLabelBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorGreenLighter)) // Set label background color to transparent
-                        .setLabelColor(ContextCompat.getColor(getContext(),R.color.colorBlackOlive))
+                        .setFabImageTintColor(ContextCompat.getColor(getContext(), R.color.colorBlackOlive))
+                        .setLabelBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter))
+                        .setLabelColor(ContextCompat.getColor(getContext(), R.color.colorBlackOlive))
                         .create()
         );
 
@@ -102,8 +87,8 @@ public class ToDoFragment extends Fragment {
                         .setLabel("Load List")
                         .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter))
                         .setFabImageTintColor(ContextCompat.getColor(getContext(), R.color.colorBlackOlive))
-                        .setLabelBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorGreenLighter)) // Set label background color to transparent
-                        .setLabelColor(ContextCompat.getColor(getContext(),R.color.colorBlackOlive))
+                        .setLabelBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGreenLighter))
+                        .setLabelColor(ContextCompat.getColor(getContext(), R.color.colorBlackOlive))
                         .create()
         );
 
@@ -112,15 +97,17 @@ public class ToDoFragment extends Fragment {
             public boolean onActionSelected(SpeedDialActionItem actionItem) {
                 int id = actionItem.getId();
                 if (id == R.id.fab_save) {
-                    // Implement save list logic here
+                    saveToDoListToFile();
                     Toast.makeText(getContext(), "List saved", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.fab_delete) {
-                    // Implement delete list logic here
+                    taskList.clear();
+                    tasksAdapter.setTask(taskList);
+                    tasksAdapter.notifyDataSetChanged();
                     Toast.makeText(getContext(), "List deleted", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.fab_load) {
-                    // Implement load list logic here
+                    loadToDoListFromFile();
                     Toast.makeText(getContext(), "List loaded", Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -130,6 +117,7 @@ public class ToDoFragment extends Fragment {
 
         return view;
     }
+
     private void showAddTaskDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
@@ -137,7 +125,7 @@ public class ToDoFragment extends Fragment {
         builder.setView(dialogView);
 
         AlertDialog dialog = builder.create();
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         EditText taskEditText = dialogView.findViewById(R.id.newTaskText);
         Button addButton = dialogView.findViewById(R.id.newTaskButton);
 
@@ -153,11 +141,70 @@ public class ToDoFragment extends Fragment {
                     tasksAdapter.setTask(taskList);
                     tasksAdapter.notifyDataSetChanged();
                     dialog.dismiss();
+                    saveToDoListToFile();
                 } else {
                     Toast.makeText(getContext(), "Please enter a task", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         dialog.show();
+    }
+
+    public void saveToDoListToFile() {
+        FileOutputStream fos = null;
+        try {
+            File file = new File(getContext().getFilesDir(), "todolist.txt");
+            fos = new FileOutputStream(file);
+            for (ToDoModel task : taskList) {
+                String line = task.getTask() + "," + task.getStatus() + "\n";
+                fos.write(line.getBytes());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error saving list", Toast.LENGTH_SHORT).show();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void loadToDoListFromFile() {
+        FileInputStream fis = null;
+        try {
+            File file = new File(getContext().getFilesDir(), "todolist.txt");
+            fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            String line;
+            taskList.clear();
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    ToDoModel task = new ToDoModel();
+                    task.setTask(parts[0]);
+                    task.setStatus(Integer.parseInt(parts[1]));
+                    taskList.add(task);
+                }
+            }
+            tasksAdapter.setTask(taskList);
+            tasksAdapter.notifyDataSetChanged();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error loading list", Toast.LENGTH_SHORT).show();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
