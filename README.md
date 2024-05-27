@@ -14,6 +14,8 @@
    - W folderze `Webapplication` wpisz komendę:  npm start
    - Projekt będzie dostępny pod adresem:
      `http://localhost:3000`
+   Informację którę mogą okazać się przydatne
+   - konto testowe dla administratora login: 245828@edu.p.lodz.pl   hasło: 123123
 
 ### Instrukcja krok po kroku (uruchomienie aplikacji android)
 
