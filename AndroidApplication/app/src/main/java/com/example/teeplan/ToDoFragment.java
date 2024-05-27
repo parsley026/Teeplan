@@ -178,22 +178,26 @@ public class ToDoFragment extends Fragment {
         FileInputStream fis = null;
         try {
             File file = new File(getContext().getFilesDir(), "todolist.txt");
+            if (!file.exists()) {
+                return;
+            }
             fis = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
             String line;
             taskList.clear();
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
+                    String taskText = parts[0];
+                    int status = Integer.parseInt(parts[1]);
                     ToDoModel task = new ToDoModel();
-                    task.setTask(parts[0]);
-                    task.setStatus(Integer.parseInt(parts[1]));
+                    task.setTask(taskText);
+                    task.setStatus(status);
                     taskList.add(task);
                 }
             }
             tasksAdapter.setTask(taskList);
-            tasksAdapter.notifyDataSetChanged();
-
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error loading list", Toast.LENGTH_SHORT).show();

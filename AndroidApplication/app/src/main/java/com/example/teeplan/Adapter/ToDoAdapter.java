@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -39,6 +40,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             item.setStatus(isChecked ? 1 : 0);
             ((ToDoFragment) fragment).saveToDoListToFile(); // Save the list whenever a task status changes
         });
+
+        holder.deleteTask.setOnClickListener(v -> {
+            todoList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, todoList.size());
+            ((ToDoFragment) fragment).saveToDoListToFile();
+        });
     }
 
     @Override
@@ -58,11 +66,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView taskText;
         CheckBox taskCheckbox;
+        ImageButton deleteTask;
 
         ViewHolder(View view) {
             super(view);
             taskText = view.findViewById(R.id.taskText);
             taskCheckbox = view.findViewById(R.id.todoCheckbox);
+            deleteTask = view.findViewById(R.id.deleteTask);
         }
     }
 }
