@@ -18,12 +18,19 @@
             android:id="@+id/todoCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tool:text="This is a task inside application"
-            android:textColor="@color/colorWhite"
             android:buttonTint="@color/colorWhite"
-            android:background="@color/colorBlackOlive"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"/>
+            />
+            <TextView
+                android:id="@+id/taskText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tool:text="This is a task inside application"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorBlackOlive"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
     
