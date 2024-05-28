@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.teeplan.coupon.CouponFragment;
 import com.example.teeplan.databinding.ActivityMainBinding;
+import com.example.teeplan.event.EventFragment;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -36,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragemnt(new HomeFragment());
+        replaceFragemnt(new ToDoFragment());
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int id = item.getItemId();
-            if (id == R.id.home) {
-                replaceFragemnt(new HomeFragment());
-            } else if (id == R.id.todo) {
+            if (id == R.id.todo) {
                 replaceFragemnt(new ToDoFragment());
+            } else if (id == R.id.events) {
+                replaceFragemnt(new EventFragment());
             } else if (id == R.id.timer) {
                 replaceFragemnt(new TimerFragment());
             } else if (id == R.id.coupon) {
