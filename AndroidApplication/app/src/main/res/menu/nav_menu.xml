@@ -7,8 +7,8 @@
         android:icon="@drawable/baseline_assignment_24"
         android:id="@+id/todo" />
     <item
-        android:title="events"
-        android:icon="@drawable/baseline_home_24"
+        android:title="Events"
+        android:icon="@drawable/baseline_event_24"
         android:id="@+id/events" />
 
 
@@ -18,7 +18,7 @@
         android:id="@+id/timer" />
 
     <item
-        android:title="Coupon"
+        android:title="Coupons"
         android:icon="@drawable/baseline_discount_24"
         android:id="@+id/coupon" />
 

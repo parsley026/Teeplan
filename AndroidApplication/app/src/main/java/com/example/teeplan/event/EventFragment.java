@@ -1,20 +1,18 @@
 package com.example.teeplan.event;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.teeplan.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EventFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class EventFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -30,15 +28,6 @@ public class EventFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EventFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static EventFragment newInstance(String param1, String param2) {
         EventFragment fragment = new EventFragment();
         Bundle args = new Bundle();
@@ -48,6 +37,9 @@ public class EventFragment extends Fragment {
         return fragment;
     }
 
+
+    ArrayList<EventModel> eventModels = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +47,39 @@ public class EventFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_event, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.eventsRecylerView);
+        setUpEventModels();
+
+        EventRecyclerViewAdapter adapter = new EventRecyclerViewAdapter(getActivity(), eventModels);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        return view;
+    }
+
+    private void setUpEventModels() {
+        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
+        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
+        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+
+        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
+        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
+        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+
+        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
+        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
+        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+
+        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
+        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
+        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+
     }
 }
