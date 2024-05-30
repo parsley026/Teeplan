@@ -1,15 +1,15 @@
 import {initializeApp} from "firebase/app";
 import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import {getDatabase, ref, get, child} from "firebase/database";
+import {getDatabase, ref, get, child, set, push, remove} from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAu0Fq7SX2Dne8apXo1eFUOsEK0aWEMbls",
-    authDomain: "fir-tutorial-3-ee572.firebaseapp.com",
-    databaseURL: "https://fir-tutorial-3-ee572-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "fir-tutorial-3-ee572",
-    storageBucket: "fir-tutorial-3-ee572.appspot.com",
-    messagingSenderId: "1076680422069",
-    appId: "1:1076680422069:web:9020d09e5d154697ac84fc"
+    apiKey: "AIzaSyAh8ZO7qR_Mkrgqg2f4hlEQIz1tZmHbON4",
+    authDomain: "fir-tutorial-4-1dccd.firebaseapp.com",
+    databaseURL: "https://fir-tutorial-4-1dccd-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fir-tutorial-4-1dccd",
+    storageBucket: "fir-tutorial-4-1dccd.appspot.com",
+    messagingSenderId: "1038074967261",
+    appId: "1:1038074967261:web:c2e107f162ae373b375734"
 };
 
 
@@ -74,13 +74,15 @@ export function login(email, password, callback) {
 }
 
 // Initialize getUsers
-export async function getUsers() {
+export async function getUsers(search) {
     try {
         const snapshot = await get(child(ref(database), 'users'));
         const users = [];
         if (snapshot.exists()) {
             snapshot.forEach((childSnapshot) => {
-                users.push(childSnapshot.val());
+                const user = childSnapshot.val();
+                user.id = childSnapshot.key;
+                users.push(user);
             });
         }
         return users;
@@ -95,13 +97,15 @@ export async function getUsers() {
 }
 
 // Initialize getCoupons
-export async function getCoupons() {
+export async function getCoupons(search) {
     try {
         const snapshot = await get(child(ref(database), 'coupons'));
         const coupons = [];
         if (snapshot.exists()) {
             snapshot.forEach((childSnapshot) => {
-                coupons.push(childSnapshot.val());
+                const coupon = childSnapshot.val();
+                coupon.id = childSnapshot.key;
+                coupons.push(coupon);
             });
         }
         return coupons;
@@ -116,13 +120,15 @@ export async function getCoupons() {
 }
 
 // Initialize getEvents
-export async function getEvents() {
+export async function getEvents(search) {
     try {
         const snapshot = await get(child(ref(database), 'events'));
         const events = [];
         if (snapshot.exists()) {
             snapshot.forEach((childSnapshot) => {
-                events.push(childSnapshot.val());
+                const event = childSnapshot.val();
+                event.id = childSnapshot.key;
+                events.push(event);
             });
         }
         return events;
@@ -138,25 +144,21 @@ export async function getEvents() {
 
 // Initialize addCoupon
 export function addCoupon(name, description, code) {
-    var data = {
-        name: name,
-        description: description,
-        code: code,
-    };
-    console.log(data.name);
-    console.log(data.description);
-    console.log(data.code);
+    try {
+        const data = {
+            name: name,
+            description: description,
+            code: code,
+        };
+    
+        const ID = push(ref(database, 'coupons/'));
+        set(ID, data);
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.error("addCoupon failed")
+        console.error(errorCode + errorMessage);
+    }
 }
 
-// Initialize addEvent
-export function addEvent(name, description, date) {
-    const data = {
-        name: name,
-        description: description,
-        code: date,
-    };
-
-    console.log(data.name)
-    console.log(data.description)
-    console.log(data.date) 
-}
