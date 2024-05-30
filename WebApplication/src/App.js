@@ -5,7 +5,7 @@ import { mainPage } from './pages/mainPage/mainPage.js';
 import { couponFormPage } from './pages/addPages/couponFormPage.js';
 import { eventFormPage } from './pages/addPages/eventFormPage.js';
 
-import { login, getUsers, getCoupons, getEvents, addCoupon } from './services/firebase.js';
+import { login, getUsers, getCoupons, getEvents, addCoupon, addEvent } from './services/firebase.js';
 
 function App() {
     // State variables
@@ -94,6 +94,7 @@ function App() {
 
     const addNewEvent = () => {
 
+        addEvent(name,description,date);
         setName('')
         setDescription('');
         setDate('');

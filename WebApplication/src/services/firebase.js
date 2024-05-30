@@ -162,3 +162,25 @@ export function addCoupon(name, description, code) {
     }
 }
 
+// Initialize addEvent
+export function addEvent(name, description, date) {
+    try {
+        const data = {
+            name: name,
+            description: description,
+            code: date,
+        };
+
+        const ID = push(ref(database, 'events/'));
+        set(ID, data);
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.error("addEvent failed")
+        console.error(errorCode + errorMessage);
+    }
+}
+
+
+
