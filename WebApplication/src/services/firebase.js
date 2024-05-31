@@ -208,5 +208,16 @@ export async function removeCoupon(couponID) {
     }
 }
 
+// Initialize removeEvent
+export async function removeEvent(eventID) {
+    try {
+        await remove(ref(database, 'events/' + eventID));
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
+        console.error("removeEvent failed")
+        console.error(errorCode + errorMessage);
+    }
+}
 
