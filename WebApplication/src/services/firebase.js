@@ -194,3 +194,19 @@ export async function removeUser(userId) {
         console.error(errorCode + errorMessage);
     }
 }
+
+// Initialize removeCoupon
+export async function removeCoupon(couponID) {
+    try {
+        await remove(ref(database, 'coupons/' + couponID));
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.error("removeCoupon failed")
+        console.error(errorCode + errorMessage);
+    }
+}
+
+
+
