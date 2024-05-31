@@ -182,5 +182,15 @@ export function addEvent(name, description, date) {
     }
 }
 
+// Initialize removeUser
+export async function removeUser(userId) {
+    try {
+        await remove(ref(database, 'users/' + userId));
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-
+        console.error("removeUser failed")
+        console.error(errorCode + errorMessage);
+    }
+}

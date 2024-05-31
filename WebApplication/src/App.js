@@ -5,7 +5,7 @@ import { mainPage } from './pages/mainPage/mainPage.js';
 import { couponFormPage } from './pages/addPages/couponFormPage.js';
 import { eventFormPage } from './pages/addPages/eventFormPage.js';
 
-import { login, getUsers, getCoupons, getEvents, addCoupon, addEvent } from './services/firebase.js';
+import { login, getUsers, getCoupons, getEvents, addCoupon, addEvent, removeUser } from './services/firebase.js';
 
 function App() {
     // State variables
@@ -230,7 +230,7 @@ function App() {
             <div className="popup_background">
                 <div className="agreement_panel">
                     <div className="text_panel">CONFIRM USER DELETION</div>
-                    <div className="button" onClick={() => {}}>YES</div>
+                    <div className="button" onClick={() => {removeUser(userID); loadData(); turnOffAgreementPanel()}}>YES</div>
                     <div className="button" id="red_button" onClick={() => turnOffAgreementPanel()}>NO</div>
                 </div>
             </div>
