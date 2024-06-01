@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,9 +36,11 @@ public class CouponRecyclerViewAdapter extends RecyclerView.Adapter<CouponRecycl
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvName.setText(couponModels.get(position).getName());
-        holder.tvDescription.setText(couponModels.get(position).getDescription());
-        holder.tvCode.setText(couponModels.get(position).getCode());
+        CouponModel coupon = couponModels.get(position);
+        holder.tvName.setText(coupon.getName());
+        holder.tvDescription.setText(coupon.getDescription());
+        holder.tvCode.setText(coupon.getCode());
+        holder.showCodeButton.setTextOn(coupon.getCode());
     }
 
     @Override
@@ -46,6 +51,7 @@ public class CouponRecyclerViewAdapter extends RecyclerView.Adapter<CouponRecycl
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName, tvDescription, tvCode;
+        ToggleButton showCodeButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +59,21 @@ public class CouponRecyclerViewAdapter extends RecyclerView.Adapter<CouponRecycl
             tvName = itemView.findViewById(R.id.couponName);
             tvDescription = itemView.findViewById(R.id.couponDescription);
             tvCode = itemView.findViewById(R.id.couponCode);
+            showCodeButton = itemView.findViewById(R.id.showCodeButton);
+
+            showCodeButton.setTextOn(tvCode.getText().toString());
+            tvCode.setVisibility(View.GONE);
+            showCodeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        tvCode.setVisibility(View.VISIBLE);
+                    } else {
+                        tvCode.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
+
 }

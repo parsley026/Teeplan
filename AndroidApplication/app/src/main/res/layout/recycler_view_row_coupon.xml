@@ -22,18 +22,30 @@
                 android:textSize="30sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="5dp"/>
-            <TextView
-                android:id="@+id/couponCode"
-                style="@style/AppEntryTextStyle"
-                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp" />
+            <FrameLayout
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="123456"
-                android:textSize="25sp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp">
+                <ToggleButton
+                    android:id="@+id/showCodeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:textOff="show code"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+                <TextView
+                    android:id="@+id/couponCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/couponDescription"
                 style="@style/AppEntryTextStyle"
