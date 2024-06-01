@@ -1,53 +1,37 @@
 package com.example.teeplan.event;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teeplan.R;
+import com.example.teeplan.event.EventModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class EventFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ArrayList<EventModel> eventModels = new ArrayList<>();
+    private EventRecyclerViewAdapter adapter;
 
     public EventFragment() {
         // Required empty public constructor
     }
 
-    public static EventFragment newInstance(String param1, String param2) {
-        EventFragment fragment = new EventFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
-    ArrayList<EventModel> eventModels = new ArrayList<>();
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
+    public static EventFragment newInstance() {
+        return new EventFragment();
     }
 
     @Override
@@ -55,31 +39,42 @@ public class EventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.eventsRecylerView);
-        setUpEventModels();
+        setUpRecyclerView();
 
-        EventRecyclerViewAdapter adapter = new EventRecyclerViewAdapter(getActivity(), eventModels);
+        adapter = new EventRecyclerViewAdapter(getActivity(), eventModels);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        retrieveEventData();
 
         return view;
     }
 
-    private void setUpEventModels() {
-        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
-        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
-        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+    private void setUpRecyclerView() {
+        // You can add any setup code here if needed
+    }
 
-        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
-        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
-        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+    private void retrieveEventData() {
+        DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference().child("events");
 
-        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
-        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
-        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+        eventsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String name = snapshot.child("name").getValue(String.class);
+                    String description = snapshot.child("description").getValue(String.class);
+                    String date = snapshot.child("date").getValue(String.class);
 
-        eventModels.add(new EventModel("Event", "coś opis jakiś", "29-05-2024"));
-        eventModels.add(new EventModel("Koncert", "coś opis jakiś", "22-05-2024"));
-        eventModels.add(new EventModel("Juwenalia", "coś opis jakiś", "26-05-2024"));
+                    eventModels.add(new EventModel(name, description, date));
+                }
 
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("EventFragment", "Failed to retrieve data", databaseError.toException());
+            }
+        });
     }
 }
