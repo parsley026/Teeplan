@@ -41,5 +41,9 @@
    - Następnie należy kliknąć zieloną strzałkę, aby uruchomić projekt na emulatorze
    - Teraz trzeba uzbroić się w cierpliwośc i poczekać aż emulator uruchomi się i automatycznie otworzy naszą aplikację
    
+5. Gdy uruchomi się aplikacja należy się
+   - zalogować na przykładowe konto testowe: login:245828@edu.p.lodz.pl hasło:123123
+   - lub zarejestować wymyślonymi przez siebie danymi i zalogować się danymi podanymi przy rejestracji.
+   
    Informację którę mogą okazać się przydatne 
    - https://developer.android.com/studio/run/managing-avds?hl=pl
