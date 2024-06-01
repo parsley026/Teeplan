@@ -20,7 +20,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="335dp"
-            android:layout_marginTop="4dp"
+            android:layout_centerVertical="true"
             android:background="@color/colorTransparent"
             android:contentDescription="deleteTask"
             android:src="@drawable/ic_delete" />
@@ -28,13 +28,15 @@
             android:id="@+id/todoCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:buttonTint="@color/colorWhite" />
             <TextView
                 android:id="@+id/taskText"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="38dp"
-                android:layout_marginTop="6dp"
+
+                android:layout_centerVertical="true"
                 tool:text="This is a task inside application"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorBlackOlive" />
