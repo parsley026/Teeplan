@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "385476382698",
+    "firebase_url": "https://fir-tutorial-5-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fir-tutorial-5",
+    "storage_bucket": "fir-tutorial-5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385476382698:android:0817d7064b6c24a54cec93",
+        "android_client_info": {
+          "package_name": "com.example.teeplan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwqCPAXujTxxukqe2QcUNmUT6krOqY6NE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.060" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/entryFirstName"
         style="@style/AppEntryTextStyle"
         android:layout_width="330dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.400" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/entryLastName"
         style="@style/AppEntryTextStyle"
         android:layout_width="330dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.500" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/entryEmail"
         style="@style/AppEntryTextStyle"
         android:layout_width="330dp"
@@ -86,12 +86,13 @@
         app:layout_constraintVertical_bias="0.700">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/entryPassword"
+            style="@style/AppEntryTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/colorWhiteHint"
             android:ems="10"
             android:hint="password"
-            style="@style/AppEntryTextStyle"
-            android:backgroundTint="@color/colorWhiteHint"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
