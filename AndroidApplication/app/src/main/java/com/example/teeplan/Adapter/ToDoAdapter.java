@@ -1,5 +1,9 @@
 package com.example.teeplan.Adapter;
 
+import android.graphics.Paint;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +66,15 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
         public void bind(ToDoModel item) {
             taskText.setText(item.getTask());
+            if (item.getStatus() == 1) {
+                // Apply strikethrough effect to the text
+                SpannableString spannableString = new SpannableString(item.getTask());
+                spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                taskText.setText(spannableString);
+            } else {
+                // Remove any existing strikethrough effect
+                taskText.setPaintFlags(taskText.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            }
             taskCheckbox.setOnCheckedChangeListener(null);
             taskCheckbox.setChecked(item.getStatus() == 1);
             //Log.d("ToDoAdapter", "Setting checkbox for task: " + item.getTask() + " to: " + (item.getStatus() == 1));
@@ -70,6 +83,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                 //Log.d("ToDoAdapter", "Checkbox for task: " + item.getTask() + " changed to: " + isChecked);
                 item.setStatus(isChecked ? 1 : 0);
                 ((ToDoFragment) fragment).saveToDoListToFile();
+                if (isChecked) {
+                    SpannableString spannableStringChecked = new SpannableString(item.getTask());
+                    spannableStringChecked.setSpan(new StrikethroughSpan(), 0, spannableStringChecked.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    taskText.setText(spannableStringChecked);
+                } else {
+                    taskText.setText(item.getTask());
+                }
             });
         }
     }
