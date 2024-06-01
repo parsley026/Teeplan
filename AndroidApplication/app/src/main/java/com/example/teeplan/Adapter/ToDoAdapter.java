@@ -1,5 +1,6 @@
 package com.example.teeplan.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,20 +34,44 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ToDoModel item = todoList.get(position);
-        holder.taskText.setText(item.getTask());
-        holder.taskCheckbox.setChecked(toBoolean(item.getStatus()));
+        holder.bind(item);
+        //Log.d("ToDoAdapter", "Binding item: " + item.getTask() + " with status: " + item.getStatus());
+    }
 
-        holder.taskCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            item.setStatus(isChecked ? 1 : 0);
-            ((ToDoFragment) fragment).saveToDoListToFile(); // Save the list whenever a task status changes
-        });
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView taskText;
+        CheckBox taskCheckbox;
+        ImageButton deleteTask;
 
-        holder.deleteTask.setOnClickListener(v -> {
-            todoList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, todoList.size());
-            ((ToDoFragment) fragment).saveToDoListToFile();
-        });
+        public ViewHolder(View view) {
+            super(view);
+            taskText = view.findViewById(R.id.taskText);
+            taskCheckbox = view.findViewById(R.id.todoCheckbox);
+            deleteTask = view.findViewById(R.id.deleteTask);
+
+            deleteTask.setOnClickListener(v -> {
+                int adapterPosition = getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    todoList.remove(adapterPosition);
+                    notifyItemRemoved(adapterPosition);
+                    notifyItemRangeChanged(adapterPosition, todoList.size());
+                    ((ToDoFragment) fragment).saveToDoListToFile();
+                }
+            });
+        }
+
+        public void bind(ToDoModel item) {
+            taskText.setText(item.getTask());
+            taskCheckbox.setOnCheckedChangeListener(null);
+            taskCheckbox.setChecked(item.getStatus() == 1);
+            //Log.d("ToDoAdapter", "Setting checkbox for task: " + item.getTask() + " to: " + (item.getStatus() == 1));
+
+            taskCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                //Log.d("ToDoAdapter", "Checkbox for task: " + item.getTask() + " changed to: " + isChecked);
+                item.setStatus(isChecked ? 1 : 0);
+                ((ToDoFragment) fragment).saveToDoListToFile();
+            });
+        }
     }
 
     @Override
@@ -54,25 +79,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         return todoList != null ? todoList.size() : 0;
     }
 
-    private boolean toBoolean(int n) {
-        return n != 0;
-    }
-
     public void setTask(List<ToDoModel> todoList) {
         this.todoList = todoList;
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView taskText;
-        CheckBox taskCheckbox;
-        ImageButton deleteTask;
-
-        ViewHolder(View view) {
-            super(view);
-            taskText = view.findViewById(R.id.taskText);
-            taskCheckbox = view.findViewById(R.id.todoCheckbox);
-            deleteTask = view.findViewById(R.id.deleteTask);
-        }
-    }
 }
