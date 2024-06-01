@@ -45,7 +45,7 @@
         style="@style/AppEntryTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jan Kowalski"
+        android:text=""
         android:textSize="20sp"
         android:layout_below="@id/accountText"
         android:layout_marginStart="20dp"
@@ -56,7 +56,7 @@
         style="@style/AppEntryTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="123456@edu.p.lodz.pl"
+        android:text=""
         android:textSize="20sp"
         android:layout_below="@id/accountInfoName"
         android:layout_marginStart="20dp"/>
