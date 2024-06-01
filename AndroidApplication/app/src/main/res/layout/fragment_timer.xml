@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
     android:id="@+id/timer_xml"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="center"
     tools:context=".TimerFragment">
-
     <TextView
         android:id="@+id/timerText"
         style="@style/AppHeaderTextStyle"
@@ -23,7 +23,7 @@
         style="@style/AppButtonStyle"
         android:layout_width="194dp"
         android:layout_height="56dp"
-        android:text="Start"
+        android:text="start"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

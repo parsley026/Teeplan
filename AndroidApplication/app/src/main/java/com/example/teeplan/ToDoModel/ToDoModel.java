@@ -4,6 +4,11 @@ public class ToDoModel {
     private int id, status;
     private String task;
 
+    public ToDoModel(int id, int status, String task) {
+        this.id = id;
+        this.status = status;
+        this.task = task;
+    }
     public int getId() {
         return id;
     }

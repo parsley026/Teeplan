@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/colorBlackOlive"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
+        <RelativeLayout
+            android:background="@color/colorBlackOlive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/couponName"
+                style="@style/AppHeaderTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp" />
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp">
+                <ToggleButton
+                    android:id="@+id/showCodeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:textOff="show code"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+                <TextView
+                    android:id="@+id/couponCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/couponDescription"
+                style="@style/AppEntryTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@+id/couponName"
+                android:layout_below="@id/couponName"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+</androidx.cardview.widget.CardView>
