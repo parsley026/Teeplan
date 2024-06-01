@@ -1,63 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent"
-    android:textAlignment="center"
+    android:id="@+id/main"
     tools:context=".LoginActivity">
-
-
     <TextView
         android:id="@+id/settingsText"
-        style="@style/AppHeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="settings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.070" />
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
+        android:textSize="32sp"
+        android:text="settings"/>
 
     <View
         android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:background="@color/colorWhiteHint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsText"
-        app:layout_constraintVertical_bias="0.034" />
+        android:layout_width="360dp"
+        android:layout_marginStart="20dp"
+        android:layout_height="2dp"
+        android:background="@color/colorWhite"
+        android:layout_below="@id/settingsText"
+        android:layout_marginVertical="10dp"/>
 
     <TextView
         android:id="@+id/accountText"
         style="@style/AppEntryTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="account"
-        android:textSize="34dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="0.036" />
-
+        android:text="logged in as:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/view"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/accountInfoName"
+        style="@style/AppEntryTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jan Kowalski"
+        android:textSize="20sp"
+        android:layout_below="@id/accountText"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/accountInfoEmail"
+        style="@style/AppEntryTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123456@edu.p.lodz.pl"
+        android:textSize="20sp"
+        android:layout_below="@id/accountInfoName"
+        android:layout_marginStart="20dp"/>
     <Button
         android:id="@+id/buttonSignOut"
         style="@style/AppButtonStyle"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:text="log out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"/>
+</RelativeLayout>
