@@ -21,15 +21,25 @@
 ### Instrukcja krok po kroku (uruchomienie aplikacji android)
 
 1. Pobierz i zainstaluj Android Studio:
+   - Wejdź na stronę [Android Studio](https://developer.android.com/studio?hl=pl) i pobierz instalator dla swojego systemu operacyjnego.
+   - Zainstaluj Android Studio.
 
 2. Sklonuj repozytorium z GitHuba
 
-3. Otwórz folder AndroidApplication z sklonowane repozytorium w Android Studio
+3. Otwórz folder AndroidApplication ze sklonowango repozytorium w Android Studio
 
 4. Uruchomienie projektu:
-   - dodaj wirtualne urządzenie (telefon z systemem Android 14+) 
-   - skompilój projekt dla wybranego urządzenia 
-   - uruchom aplikację 
+   - Poczekaj, aż folder się załaduje (będzie to widać, gdy w przeglądarce plików folderem nadrzędnym stanie się app)
+     
+     ![obraz](https://github.com/parsley026/Teeplan/assets/114811833/02973a7f-18a4-4d6f-a5bd-09d6ac14a515)
+
+   - Na pasku górnym będą opcje uruchomienia projektu:
+
+     ![obraz](https://github.com/parsley026/Teeplan/assets/114811833/f91c5a0c-d882-442d-8dbc-af80d33cb968)
+
+   - Należy wybrać z emulatora jakiego telefonu skorzystamy
+   - Następnie należy kliknąć zieloną strzałkę, aby uruchomić projekt na emulatorze
+   - Teraz trzeba uzbroić się w cierpliwośc i poczekać aż emulator uruchomi się i automatycznie otworzy naszą aplikację
    
    Informację którę mogą okazać się przydatne 
    - https://developer.android.com/studio/run/managing-avds?hl=pl
