@@ -71,9 +71,11 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                 SpannableString spannableString = new SpannableString(item.getTask());
                 spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 taskText.setText(spannableString);
+                taskText.setAlpha(0.4f);
             } else {
                 // Remove any existing strikethrough effect
                 taskText.setPaintFlags(taskText.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                taskText.setAlpha(1.0f);
             }
             taskCheckbox.setOnCheckedChangeListener(null);
             taskCheckbox.setChecked(item.getStatus() == 1);
@@ -87,8 +89,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     SpannableString spannableStringChecked = new SpannableString(item.getTask());
                     spannableStringChecked.setSpan(new StrikethroughSpan(), 0, spannableStringChecked.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     taskText.setText(spannableStringChecked);
+                    taskText.setAlpha(0.4f);
                 } else {
                     taskText.setText(item.getTask());
+                    taskText.setAlpha(1.0f);
                 }
             });
         }
