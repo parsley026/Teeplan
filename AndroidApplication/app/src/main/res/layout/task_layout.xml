@@ -36,6 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="38dp"
                 android:layout_centerVertical="true"
+                style="@style/AppEntryTextStyle"
+                android:textSize="15sp"
                 tool:text="This is a task inside application"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorBlackOlive" />
