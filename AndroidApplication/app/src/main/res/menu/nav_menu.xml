@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:title="Home"
-        android:icon="@drawable/baseline_home_24"
-        android:id="@+id/home" />
 
     <item
         android:title="Todo"
         android:icon="@drawable/baseline_assignment_24"
         android:id="@+id/todo" />
+    <item
+        android:title="Events"
+        android:icon="@drawable/baseline_event_24"
+        android:id="@+id/events" />
+
 
     <item
         android:title="Timer"
@@ -17,7 +18,7 @@
         android:id="@+id/timer" />
 
     <item
-        android:title="Coupon"
+        android:title="Coupons"
         android:icon="@drawable/baseline_discount_24"
         android:id="@+id/coupon" />
 
