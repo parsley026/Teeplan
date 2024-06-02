@@ -88,17 +88,14 @@ public class SignupActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
 
-                                    // none
                                     UserData userData = new UserData(firstName, lastName, email, password);
                                     mDatabase.child("users/").child(user.getUid()).setValue(userData);
 
                                     Toast.makeText(SignupActivity.this, "Authentication succeeded.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Toast.makeText(SignupActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }

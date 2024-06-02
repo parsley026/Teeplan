@@ -26,7 +26,6 @@ public class CouponFragment extends Fragment {
     private CouponRecyclerViewAdapter adapter;
 
     public CouponFragment() {
-        // Required empty public constructor
     }
 
     public static CouponFragment newInstance() {
@@ -50,7 +49,6 @@ public class CouponFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        // You can add any setup code here if needed
     }
 
     private void retrieveDataFromDatabase() {

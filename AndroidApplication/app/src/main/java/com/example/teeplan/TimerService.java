@@ -29,7 +29,6 @@ public class TimerService extends Service {
         secondsBreak = intent.getIntExtra("secondsBreak", 0);
         startTimer();
 
-        //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 

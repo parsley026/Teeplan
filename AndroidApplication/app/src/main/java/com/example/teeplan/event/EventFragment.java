@@ -27,7 +27,6 @@ public class EventFragment extends Fragment {
     private EventRecyclerViewAdapter adapter;
 
     public EventFragment() {
-        // Required empty public constructor
     }
 
     public static EventFragment newInstance() {
@@ -51,7 +50,7 @@ public class EventFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        // You can add any setup code here if needed
+
     }
 
     private void retrieveEventData() {

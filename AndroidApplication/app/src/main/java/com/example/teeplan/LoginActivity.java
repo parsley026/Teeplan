@@ -93,11 +93,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             swapToMainActivity();
-                            // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Authentication succeeded.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

@@ -39,7 +39,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         ToDoModel item = todoList.get(position);
         holder.bind(item);
-        //Log.d("ToDoAdapter", "Binding item: " + item.getTask() + " with status: " + item.getStatus());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,22 +66,18 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         public void bind(ToDoModel item) {
             taskText.setText(item.getTask());
             if (item.getStatus() == 1) {
-                // Apply strikethrough effect to the text
                 SpannableString spannableString = new SpannableString(item.getTask());
                 spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 taskText.setText(spannableString);
                 taskText.setAlpha(0.4f);
             } else {
-                // Remove any existing strikethrough effect
                 taskText.setPaintFlags(taskText.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 taskText.setAlpha(1.0f);
             }
             taskCheckbox.setOnCheckedChangeListener(null);
             taskCheckbox.setChecked(item.getStatus() == 1);
-            //Log.d("ToDoAdapter", "Setting checkbox for task: " + item.getTask() + " to: " + (item.getStatus() == 1));
 
             taskCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                //Log.d("ToDoAdapter", "Checkbox for task: " + item.getTask() + " changed to: " + isChecked);
                 item.setStatus(isChecked ? 1 : 0);
                 ((ToDoFragment) fragment).saveToDoListToFile();
                 if (isChecked) {
