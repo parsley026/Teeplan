@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../pages/mainPage/mainPage.css';
 
-export function couponFormPage(name ,handleNameChange, description, handleDescriptionChange,code,handleCodeChange,addNewCoupon,showOptionsCoupon){
+export function couponFormPage(name, handleNameChange, description, handleDescriptionChange, code, handleCodeChange, addNewCoupon, showOptionsCoupon){
     return (
         <div id='middle_inner_container'>
         <div className="add_form">

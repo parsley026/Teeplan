@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-import {loginPage} from './pages/loginPage/loginPage.js';
-import {mainPage} from './pages/mainPage/mainPage.js';
+import { loginPage } from './pages/loginPage/loginPage.js';
+import { mainPage } from './pages/mainPage/mainPage.js';
 import { couponFormPage } from './pages/addPages/couponFormPage.js';
 import { eventFormPage } from './pages/addPages/eventFormPage.js';
 
-import {login, getUsers, getCoupons, getEvents, addCoupon, addEvent} from './services/firebase.js';
+import { login, getUsers, getCoupons, getEvents, addCoupon, addEvent, removeUser, removeCoupon, removeEvent } from './services/firebase.js';
 
 function App() {
     // State variables
@@ -82,13 +82,14 @@ function App() {
     };
 
     const addNewCoupon = () =>{
-        addCoupon(name,description,code);
 
+        addCoupon(name,description,code);
         setName('')
         setDescription('');
         setCode('');
         setCouponIn(false)
         showOptionsCoupon();
+    
     }
 
     const addNewEvent = () => {
@@ -165,7 +166,7 @@ function App() {
                                 <div className="data_field">{event.description}</div>
                                 <div className="data_field">{event.date}</div>
                             </div>
-                            <div className='trash_bin_container' onClick={popupAgreementPanelEvents}></div>
+                            <div className='trash_bin_container' onClick={() => popupAgreementPanelEvents(event.id)}></div>
                         </div>
                     ))}
                 </div>
@@ -191,7 +192,7 @@ function App() {
                                 <div className="data_field"><p>{coupon.description}</p></div>
                                 <div className="data_field"><p>{coupon.code}</p></div>
                             </div>
-                            <div className='trash_bin_container' onClick={popupAgreementPanelCoupon}></div>
+                            <div className='trash_bin_container' onClick={() => popupAgreementPanelCoupon(coupon.id)}></div>
                         </div>
                     ))}
                 </div>
@@ -216,7 +217,7 @@ function App() {
                                 <div className="data_field"><p>{user.last_name}</p></div>
                                 <div className="data_field"><p>{user.email}</p></div>
                             </div>
-                            <div className='trash_bin_container' onClick={popupAgreementPanelUsers}></div>
+                            <div className='trash_bin_container' onClick={() => popupAgreementPanelUsers(user.id)}></div>
                         </div>
                     ))}
                 </div>
@@ -224,37 +225,37 @@ function App() {
         );
     };
 
-    const popupAgreementPanelUsers = () => {
+    const popupAgreementPanelUsers = (userID) => {
         setPopupPanel(
             <div className="popup_background">
                 <div className="agreement_panel">
                     <div className="text_panel">CONFIRM USER DELETION</div>
-                    <div className="button">YES</div>
-                    <div className="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+                    <div className="button" onClick={() => {removeUser(userID); loadData(); turnOffAgreementPanel()}}>YES</div>
+                    <div className="button" id="red_button" onClick={() => turnOffAgreementPanel()}>NO</div>
                 </div>
             </div>
         );
     };
 
-    const popupAgreementPanelCoupon = () => {
+    const popupAgreementPanelCoupon = (couponID) => {
         setPopupPanel(
             <div className="popup_background">
                 <div className="agreement_panel">
                     <div className="text_panel">CONFIRM COUPON DELETION</div>
-                    <div className="button">YES</div>
-                    <div className="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+                    <div className="button" onClick={() => {removeCoupon(couponID); fetchCoupons(); turnOffAgreementPanel()}}>YES</div>
+                    <div className="button" id="red_button" onClick={() => turnOffAgreementPanel()}>NO</div>
                 </div>
             </div>
         );
     };
 
-    const popupAgreementPanelEvents = () => {
+    const popupAgreementPanelEvents = (eventID) => {
         setPopupPanel(
             <div className="popup_background">
                 <div className="agreement_panel">
                     <div className="text_panel">CONFIRM EVENT DELETION</div>
-                    <div className="button">YES</div>
-                    <div className="button" id="red_button" onClick={turnOffAgreementPanel}>NO</div>
+                    <div className="button" onClick={() => {removeEvent(eventID); fetchEvents(); turnOffAgreementPanel();}}>YES</div>
+                    <div className="button" id="red_button" onClick={() => turnOffAgreementPanel()}>NO</div>
                 </div>
             </div>
         );
@@ -301,7 +302,6 @@ function App() {
             console.error("fetchEvents failed")
             console.error(errorCode + errorMessage);
         }
-        ;
     };
 
     function loadData() {
