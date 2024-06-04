@@ -176,9 +176,12 @@ p {
 For future reference, it cannot be done like this: searchbar_input:focus etc.
  because for some reason it does not work, do not change it. 🐱
 */
+
 .search_bar input:focus{
     outline: none;
 }
+
+
 .search_bar input::placeholder{
     color: #F5FFEC;
     font-family: 'interregular';
@@ -211,10 +214,14 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    overflow: visible;
+    overflow-y: scroll;
+
+    gap: 10%;
 
     padding-left: 4%;
     padding-right: 4%;
-
+    
     padding-top: 0;
     padding-bottom: 0;
 

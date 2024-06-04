@@ -74,7 +74,7 @@ export function login(email, password, callback) {
 }
 
 // Initialize getUsers
-export async function getUsers(search) {
+export async function getUsersFromDatabase(search) {
     try {
         const snapshot = await get(child(ref(database), 'users'));
         const users = [];
@@ -97,7 +97,7 @@ export async function getUsers(search) {
 }
 
 // Initialize getCoupons
-export async function getCoupons(search) {
+export async function getCouponsFromDatabase(search) {
     try {
         const snapshot = await get(child(ref(database), 'coupons'));
         const coupons = [];
@@ -120,7 +120,7 @@ export async function getCoupons(search) {
 }
 
 // Initialize getEvents
-export async function getEvents(search) {
+export async function getEventsFromDatabase(search) {
     try {
         const snapshot = await get(child(ref(database), 'events'));
         const events = [];
@@ -143,7 +143,7 @@ export async function getEvents(search) {
 }
 
 // Initialize addCoupon
-export function addCoupon(name, description, code) {
+export function addCouponToDatabase(name, description, code) {
     try {
         const data = {
             name: name,
@@ -163,12 +163,12 @@ export function addCoupon(name, description, code) {
 }
 
 // Initialize addEvent
-export function addEvent(name, description, date) {
+export function addEventToDatabase(name, description, date) {
     try {
         const data = {
             name: name,
             description: description,
-            code: date,
+            date: date,
         };
 
         const ID = push(ref(database, 'events/'));
@@ -183,7 +183,7 @@ export function addEvent(name, description, date) {
 }
 
 // Initialize removeUser
-export async function removeUser(userId) {
+export async function removeUserFromDatabase(userId) {
     try {
         await remove(ref(database, 'users/' + userId));
     } catch (error) {
@@ -196,7 +196,7 @@ export async function removeUser(userId) {
 }
 
 // Initialize removeCoupon
-export async function removeCoupon(couponID) {
+export async function removeCouponFromDatabase(couponID) {
     try {
         await remove(ref(database, 'coupons/' + couponID));
     } catch (error) {
@@ -209,7 +209,7 @@ export async function removeCoupon(couponID) {
 }
 
 // Initialize removeEvent
-export async function removeEvent(eventID) {
+export async function removeEventFromDatabase(eventID) {
     try {
         await remove(ref(database, 'events/' + eventID));
     } catch (error) {

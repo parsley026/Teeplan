@@ -5,7 +5,7 @@ import { mainPage } from './pages/mainPage/mainPage.js';
 import { couponFormPage } from './pages/addPages/couponFormPage.js';
 import { eventFormPage } from './pages/addPages/eventFormPage.js';
 
-import { login, getUsers, getCoupons, getEvents, addCoupon, addEvent, removeUser, removeCoupon, removeEvent } from './services/firebase.js';
+import { login, getUsersFromDatabase, getCouponsFromDatabase, getEventsFromDatabase, addCouponToDatabase, addEventToDatabase, removeUserFromDatabase, removeCouponFromDatabase, removeEventFromDatabase } from './services/firebase.js';
 
 function App() {
     // State variables
@@ -13,6 +13,8 @@ function App() {
 
     const [isCouponIn, setCouponIn] = useState(false);
     const [isEventIn, setEventIn] = useState(false);
+
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -60,10 +62,95 @@ function App() {
         setDate(event.target.value);
     };
 
+
+    const loadEvents = async () => {
+        const events = await getEventsFromDatabase();
+        setEvents(events);
+        setMiddlePanel(
+            <div id="section_panel">
+                <div className="action_panel">
+                    <div className="search_bar">
+                        <input className="searchbar_input" type="text" name="search" placeholder="search" value={search} onChange={handleSearchChange} />
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                </div>
+                <div className="data_container">
+                    {events.map((event, index) => (
+                        <div className="information_container" key={index}>
+                            <div className="data_field_container">
+                                <div className="data_field"><p>{event.name}</p></div>
+                                <div className="data_field"><p>{event.description}</p></div>
+                                <div className="data_field"><p>{event.date}</p></div>
+                            </div>
+                            <div className="trash_bin_container" onClick={() => popupAgreementPanelEvents(event.id)}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const loadCoupons = async () => {
+        const coupons = await getCouponsFromDatabase();
+        setCoupons(coupons);
+        setMiddlePanel(
+            <div id="section_panel">
+                <div className="action_panel">
+                    <div className="search_bar">
+                        <input className="searchbar_input" placeholder='search'></input>
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                </div>
+                <div className="data_container">
+                    {coupons.map((coupon, index) => (
+                        <div className="information_container" key={index}>
+                            <div className="data_field_container">
+                                <div className="data_field"><p>{coupon.name}</p></div>
+                                <div className="data_field"><p>{coupon.description}</p></div>
+                                <div className="data_field"><p>{coupon.code}</p></div>
+                            </div>
+                            <div className='trash_bin_container' onClick={() => popupAgreementPanelCoupon(coupon.id)}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const loadUsers = async () => {
+        const users = await getUsersFromDatabase();
+        setUsers(users);
+        setMiddlePanel(
+            <div id="section_panel">
+                <div className="action_panel">
+                    <div className="search_bar">
+                        <input className="searchbar_input" placeholder='search'></input>
+                        <div className="icon" id="search_icon"></div>
+                    </div>
+                </div>
+                <div className="data_container">
+                    {users.map((user, index) => (
+                        <div className="information_container" key={index}>
+                            <div className="data_field_container">
+                                <div className="data_field"><p>{user.first_name}</p></div>
+                                <div className="data_field"><p>{user.last_name}</p></div>
+                                <div className="data_field"><p>{user.email}</p></div>
+                            </div>
+                            <div className='trash_bin_container' onClick={() => popupAgreementPanelUsers(user.id)}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
+
+
     const logInUser = () => {
         login(email, password, (isLoggedIn, errorMessage) => {
             if (isLoggedIn) {
                 setLoggedIn(true);
+                localStorage.setItem('isLoggedIn', 'true');
             } else {
                 console.error(errorMessage);
                 setEmail('');
@@ -79,29 +166,65 @@ function App() {
         setPassword('');
         setMiddlePanel(<div/>);
         setPopupPanel(<div/>)
+        localStorage.clear();
     };
 
     const addNewCoupon = () =>{
 
-        addCoupon(name,description,code);
+        addCouponToDatabase(name,description,code);
         setName('')
         setDescription('');
         setCode('');
         setCouponIn(false)
+        loadCoupons();
         showOptionsCoupon();
     
     }
 
-    const addNewEvent = () => {
 
-        addEvent(name,description,date);
+    const addNewEvent = async () => {
+        await addEventToDatabase(name, description, date);
         setName('')
         setDescription('');
         setDate('');
         setEventIn(false)
+        loadEvents();
         showOptionsEvents();
-
     }
+
+    const removeEvent = async (eventId) => {
+
+        try {
+            await removeEventFromDatabase(eventId);
+            loadEvents(); 
+            showOptionsEvents();
+        } catch (error) {
+            console.error("Failed to remove event from database", error);
+        }
+    };
+
+    const removeUser = async (userId) => {
+        try {
+            await removeUserFromDatabase(userId);
+            loadUsers(); 
+            showOptionsUsers();
+        } catch (error) {
+            console.error("Failed to remove event from database", error);
+        }
+    }
+
+    const removeCoupon = async (couponId) =>{
+        try {
+            await removeCouponFromDatabase(couponId);
+            loadCoupons(); 
+            showOptionsCoupon();
+        } catch (error) {
+            console.error("Failed to remove coupon from database", error);
+        }
+    }
+
+
+    
     const changePageToAddEventPage = () => {
         setEventIn(true);
     }
@@ -148,13 +271,14 @@ function App() {
     };
 
 
+
     const showOptionsEvents = () => {
         setEventIn(false);
         setMiddlePanel(
             <div id="section_panel">
                 <div className="action_panel">
                     <div className="search_bar">
-                        <input className="searchbar_input" type="text" name="search" placeholder='search' value={search} onChange={handleSearchChange} />
+                        <input className="searchbar_input" type="text" name="search" placeholder="search" value={search} onChange={handleSearchChange} />
                         <div className="icon" id="search_icon"></div>
                     </div>
                 </div>
@@ -162,11 +286,11 @@ function App() {
                     {events.map((event, index) => (
                         <div className="information_container" key={index}>
                             <div className="data_field_container">
-                                <div className="data_field">{event.name}</div>
-                                <div className="data_field">{event.description}</div>
-                                <div className="data_field">{event.date}</div>
+                                <div className="data_field"><p>{event.name}</p></div>
+                                <div className="data_field"><p>{event.description}</p></div>
+                                <div className="data_field"><p>{event.date}</p></div>
                             </div>
-                            <div className='trash_bin_container' onClick={() => popupAgreementPanelEvents(event.id)}></div>
+                            <div className="trash_bin_container" onClick={() => popupAgreementPanelEvents(event.id)}></div>
                         </div>
                     ))}
                 </div>
@@ -267,7 +391,7 @@ function App() {
 
     const fetchUsers = async () => {
         try {
-            const fetchedUsers = await getUsers(search);
+            const fetchedUsers = await getUsersFromDatabase(search);
             setUsers(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -280,7 +404,7 @@ function App() {
 
     const fetchCoupons = async () => {
         try {
-            const fetchedUsers = await getCoupons(search);
+            const fetchedUsers = await getCouponsFromDatabase(search);
             setCoupons(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -293,7 +417,7 @@ function App() {
 
     const fetchEvents = async () => {
         try {
-            const fetchedUsers = await getEvents(search);
+            const fetchedUsers = await getEventsFromDatabase(search);
             setEvents(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -311,6 +435,10 @@ function App() {
     }
 
     useEffect(() => {
+        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+        if (storedIsLoggedIn){
+            setLoggedIn(true)
+        }
         loadData();
     });
 
