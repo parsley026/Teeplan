@@ -74,7 +74,7 @@ export function login(email, password, callback) {
 }
 
 // Initialize getUsers
-export async function getUsersFromDatabase(search) {
+export async function getUsersFromDatabase(search = '') {
     try {
         const snapshot = await get(child(ref(database), 'users'));
         const users = [];
@@ -82,7 +82,9 @@ export async function getUsersFromDatabase(search) {
             snapshot.forEach((childSnapshot) => {
                 const user = childSnapshot.val();
                 user.id = childSnapshot.key;
-                users.push(user);
+                if (user.first_name.includes(search) || user.last_name.includes(search) || user.email.includes(search)) {
+                    users.push(user);
+                }
             });
         }
         return users;
@@ -97,7 +99,7 @@ export async function getUsersFromDatabase(search) {
 }
 
 // Initialize getCoupons
-export async function getCouponsFromDatabase(search) {
+export async function getCouponsFromDatabase(search = '') {
     try {
         const snapshot = await get(child(ref(database), 'coupons'));
         const coupons = [];
@@ -105,7 +107,9 @@ export async function getCouponsFromDatabase(search) {
             snapshot.forEach((childSnapshot) => {
                 const coupon = childSnapshot.val();
                 coupon.id = childSnapshot.key;
-                coupons.push(coupon);
+                if (coupon.name.includes(search) || coupon.description.includes(search) || coupon.code.includes(search)) {
+                    coupons.push(coupon);
+                }
             });
         }
         return coupons;
@@ -113,14 +117,14 @@ export async function getCouponsFromDatabase(search) {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        console.error("getUsers failed")
+        console.error("getCoupons failed")
         console.error(errorCode + errorMessage);
         return [];
     }
 }
 
 // Initialize getEvents
-export async function getEventsFromDatabase(search) {
+export async function getEventsFromDatabase(search = '') {
     try {
         const snapshot = await get(child(ref(database), 'events'));
         const events = [];
@@ -128,7 +132,9 @@ export async function getEventsFromDatabase(search) {
             snapshot.forEach((childSnapshot) => {
                 const event = childSnapshot.val();
                 event.id = childSnapshot.key;
-                events.push(event);
+                if (event.name.includes(search) || event.description.includes(search)) {
+                    events.push(event);
+                }
             });
         }
         return events;

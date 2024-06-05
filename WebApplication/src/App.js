@@ -14,8 +14,6 @@ function App() {
     const [isCouponIn, setCouponIn] = useState(false);
     const [isEventIn, setEventIn] = useState(false);
 
-
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -304,7 +302,7 @@ function App() {
             <div id="section_panel">
                 <div className="action_panel">
                     <div className="search_bar">
-                        <input className="searchbar_input" placeholder='search'></input>
+                        <input className="searchbar_input" type="text" name="search" placeholder="search" value={search} onChange={handleSearchChange} />
                         <div className="icon" id="search_icon"></div>
                     </div>
                 </div>
@@ -329,7 +327,7 @@ function App() {
             <div id="section_panel">
                 <div className="action_panel">
                     <div className="search_bar">
-                        <input className="searchbar_input" placeholder='search'></input>
+                        <input className="searchbar_input" type="text" name="search" placeholder="search" value={search} onChange={handleSearchChange} />
                         <div className="icon" id="search_icon"></div>
                     </div>
                 </div>
