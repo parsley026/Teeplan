@@ -1,4 +1,5 @@
 package com.example.teeplan;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -12,7 +13,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
+public class JavaMailAPI extends AsyncTask<Void,Void,Boolean>  {
 
     private Context mContext;
     private Session mSession;
@@ -39,15 +40,19 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(Boolean result) {
+        super.onPostExecute(result);
         mProgressDialog.dismiss();
 
-        Toast.makeText(mContext,"Message Sent",Toast.LENGTH_SHORT).show();
+        if(result) {
+            Toast.makeText(mContext,"Report Sent",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(mContext,"Failed to send reportPo",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Boolean doInBackground(Void... params) {
         Properties props = new Properties();
 
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -72,10 +77,11 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
             mm.setText(mMessage);
             Transport.send(mm);
 
+            return true;
 
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
     }
 }
