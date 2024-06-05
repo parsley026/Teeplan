@@ -114,14 +114,9 @@ public class SettingsFragment extends Fragment {
                 EditText bugDescription = dialogView.findViewById(R.id.reportBug);
                 String description = bugDescription.getText().toString();
                 if (!description.isEmpty()) {
-                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"245849@edu.p.lodz.pl"});
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Bug Report");
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, description);
-                    emailIntent.setType("message/rfc/822");
-                    startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                    JavaMailAPI javaMailAPI = new JavaMailAPI(getActivity(), "245849@edu.p.lodz.pl", "Bug Report", description);
+                    javaMailAPI.execute();
 
-                    Toast.makeText(getActivity(), "Bug report submitted", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                 } else {
                     Toast.makeText(getActivity(), "Please enter a description", Toast.LENGTH_SHORT).show();
