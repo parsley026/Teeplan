@@ -3,10 +3,12 @@ package com.example.teeplan;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -92,6 +96,7 @@ public class SettingsFragment extends Fragment {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
+
     private void showReportBugPopup() {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.report_a_bug, null);
@@ -109,7 +114,13 @@ public class SettingsFragment extends Fragment {
                 EditText bugDescription = dialogView.findViewById(R.id.reportBug);
                 String description = bugDescription.getText().toString();
                 if (!description.isEmpty()) {
-                    //TODO: Mati dodaj tutaj wysyłanie tekstu z reportu bugDescription na maila
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"245849@edu.p.lodz.pl"});
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Bug Report");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, description);
+                    emailIntent.setType("message/rfc/822");
+                    startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
                     Toast.makeText(getActivity(), "Bug report submitted", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                 } else {
@@ -118,6 +129,7 @@ public class SettingsFragment extends Fragment {
             }
         });
     }
+
     private void showChangePasswordPopup() {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.change_password, null);
