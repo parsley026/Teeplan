@@ -38,8 +38,7 @@
         android:textStyle="bold"
         android:layout_below="@id/view"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="20dp" />
     <TextView
         android:id="@+id/accountInfoName"
         style="@style/AppEntryTextStyle"
@@ -49,8 +48,7 @@
         android:textSize="20sp"
         android:layout_below="@id/accountText"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="20dp" />
     <TextView
         android:id="@+id/accountInfoEmail"
         style="@style/AppEntryTextStyle"
@@ -61,6 +59,15 @@
         android:layout_below="@id/accountInfoName"
         android:layout_marginStart="20dp"/>
     <Button
+        android:id="@+id/buttonChangePass"
+        style="@style/AppButtonStyle"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:text="change password"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="220dp"/>
+    <Button
         android:id="@+id/buttonSignOut"
         style="@style/AppButtonStyle"
         android:layout_width="330dp"
@@ -68,5 +75,14 @@
         android:text="log out"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginVertical="150dp"/>
+    <Button
+        android:id="@+id/buttonReport"
+        style="@style/AppButtonStyleRed"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:text="report a bug"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="50dp"/>
 </RelativeLayout>
