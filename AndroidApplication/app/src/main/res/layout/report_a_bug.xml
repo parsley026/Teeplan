@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/newTask"
+    android:background="@drawable/pop_up">
+    <TextView
+        android:id="@+id/textReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Report a bug"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:textSize="25sp"
+        android:layout_margin="20dp"/>
+    <EditText
+        android:id="@+id/reportBug"
+        android:layout_below="@id/textReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_shape_darkolive"
+        android:padding="10dp"
+        android:hint="Write your report here"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhiteHint"
+        android:textSize="20sp"/>
+    <Button
+        android:id="@+id/sendReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reportBug"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:text="Send"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"/>
+</RelativeLayout>
+
