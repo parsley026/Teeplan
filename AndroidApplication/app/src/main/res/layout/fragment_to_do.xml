@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/tasksText"
         android:background="@color/colorPrimaryDark"
@@ -16,7 +17,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="50dp"
         android:textSize="32sp"
-        android:text="to do list:"/>
+        android:text="to do list" />
 
     <ImageButton
         android:id="@+id/addTask"
@@ -29,8 +30,7 @@
         android:background="@color/colorTransparent"
         android:src="@drawable/baseline_add_24"
         app:tint="@color/colorGreenDarker"
-        android:contentDescription="addTask">
-    </ImageButton>
+        android:contentDescription="addTask"></ImageButton>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/colorTransparent"/>
+        android:background="@color/colorTransparent" />
 
     <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/speedDial"
@@ -60,7 +60,6 @@
         android:layout_margin="10dp"
         app:sdMainFabClosedSrc="@drawable/baseline_arrow_upward_24"
         app:sdMainFabOpenedSrc="@drawable/baseline_arrow_downward_24"
-        android:background="@color/colorTransparent">
-    </com.leinardi.android.speeddial.SpeedDialView>
+        android:background="@color/colorTransparent"></com.leinardi.android.speeddial.SpeedDialView>
 
 </RelativeLayout>
