@@ -1,4 +1,4 @@
-package com.example.teeplan;
+package com.example.teeplan.mailRelatedUtil;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,12 +17,11 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Boolean>  {
 
     private Context mContext;
     private Session mSession;
-
     private String mEmail;
     private String mSubject;
     private String mMessage;
-    public final String username = "teeplanreport@gmail.com";
-    public final String password = "xger avrf ogpr sfsw";
+    private final String username = "teeplanreport@gmail.com";
+    private final String password = "xger avrf ogpr sfsw";
 
     private ProgressDialog mProgressDialog;
 
@@ -47,7 +46,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Boolean>  {
         if(result) {
             Toast.makeText(mContext,"Report Sent",Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(mContext,"Failed to send reportPo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"Failed to send report",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -80,7 +79,6 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Boolean>  {
             return true;
 
         } catch (MessagingException e) {
-            e.printStackTrace();
             return false;
         }
     }
