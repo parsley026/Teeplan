@@ -19,8 +19,6 @@ function App() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [search, setSearch] = useState('');
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -352,7 +350,7 @@ function App() {
 
     const fetchUsers = async () => {
         try {
-            const fetchedUsers = await getUsersFromDatabase(search);
+            const fetchedUsers = await getUsersFromDatabase();
             setUsers(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -365,7 +363,7 @@ function App() {
 
     const fetchCoupons = async () => {
         try {
-            const fetchedUsers = await getCouponsFromDatabase(search);
+            const fetchedUsers = await getCouponsFromDatabase();
             setCoupons(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -378,7 +376,7 @@ function App() {
 
     const fetchEvents = async () => {
         try {
-            const fetchedUsers = await getEventsFromDatabase(search);
+            const fetchedUsers = await getEventsFromDatabase();
             setEvents(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;

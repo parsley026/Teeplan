@@ -3,13 +3,13 @@ import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {getDatabase, ref, get, child, set, push, remove} from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAh8ZO7qR_Mkrgqg2f4hlEQIz1tZmHbON4",
-    authDomain: "fir-tutorial-4-1dccd.firebaseapp.com",
-    databaseURL: "https://fir-tutorial-4-1dccd-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "fir-tutorial-4-1dccd",
-    storageBucket: "fir-tutorial-4-1dccd.appspot.com",
-    messagingSenderId: "1038074967261",
-    appId: "1:1038074967261:web:c2e107f162ae373b375734"
+    apiKey: "AIzaSyD34bNfTmIOtEE4ofyOfZ4oybkehnbJ15A",
+    authDomain: "fir-tutorial-6-c2e10.firebaseapp.com",
+    databaseURL: "https://fir-tutorial-6-c2e10-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fir-tutorial-6-c2e10",
+    storageBucket: "fir-tutorial-6-c2e10.appspot.com",
+    messagingSenderId: "104619138729",
+    appId: "1:104619138729:web:74e8cbe4003ff13fdc93b8"
 };
 
 
@@ -74,7 +74,7 @@ export function login(email, password, callback) {
 }
 
 // Initialize getUsers
-export async function getUsersFromDatabase(search) {
+export async function getUsersFromDatabase() {
     try {
         const snapshot = await get(child(ref(database), 'users'));
         const users = [];
@@ -97,7 +97,7 @@ export async function getUsersFromDatabase(search) {
 }
 
 // Initialize getCoupons
-export async function getCouponsFromDatabase(search) {
+export async function getCouponsFromDatabase() {
     try {
         const snapshot = await get(child(ref(database), 'coupons'));
         const coupons = [];
@@ -120,7 +120,7 @@ export async function getCouponsFromDatabase(search) {
 }
 
 // Initialize getEvents
-export async function getEventsFromDatabase(search) {
+export async function getEventsFromDatabase() {
     try {
         const snapshot = await get(child(ref(database), 'events'));
         const events = [];
