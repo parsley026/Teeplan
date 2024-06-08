@@ -9,7 +9,7 @@ import { login, getUsersFromDatabase, getCouponsFromDatabase, getEventsFromDatab
 
 function App() {
     // State variables
-    const [loggedIn, setLoggedIn] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const [isCouponIn, setCouponIn] = useState(false);
     const [isEventIn, setEventIn] = useState(false);
