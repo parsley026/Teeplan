@@ -10,11 +10,19 @@ p {
     padding: 0;
 }
 
+#left_inner_container{ 
+    top:0;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+}
+
 .option_panel {
 
-    width: 100%;    
-    height: 6vh;
-
+    width: 100%;
     display: flex;
     flex-direction: row;
 
@@ -27,10 +35,9 @@ p {
 }
 
 .text_panel {
-    width: 20vw;
-    height: 6vh;
+    width: 100%;
+
     color: #DDF9C1;
-    font-size: 3.5vh;
     text-align: center;
 
     align-items: center;
@@ -41,11 +48,14 @@ p {
     padding: 0;
 }
 
+.text_panel p{
+    font-size: 2vw;
+}
+
 .text_panel_right{
     width: 20vw;
     height: 6vh;
     color: #DDF9C1;
-    font-size: 3.5vh;
 
     align-items:center;
     justify-content: end;
@@ -55,12 +65,16 @@ p {
     margin: 0;
     padding: 0;
 }
+.text_panel_right p{
+    font-size: 2vw;
+}
 .text_panel_right:hover{
     cursor:pointer;
     color: white;
 }
+
 .icon {
-    width: 6vw;
+    width: 25%;
     height: 6vh;
     background-size: contain;
 
@@ -122,16 +136,6 @@ p {
     background-image: url("../../assets/addIcon_white.png");
 }
 
-#left_inner_container{ 
-    top:0;
-    left: 0;
-    width: 15%;
-    height: 100%;
-    position:fixed;
-    display: flex;
-    flex-direction: column;
-}
-
 #middle_inner_container{
     top:0;
     left:15%; 
@@ -152,6 +156,8 @@ p {
 }
 
 .action_panel {
+
+
     width: 100%;
     height: 20%;
 
@@ -161,51 +167,16 @@ p {
 
 }
 
-.search_bar{
-    width: 50%;
-    height: 20%;
 
-    display: flex;
-
-    border-radius: 1vh;
-    border: 0.01vh solid #F5FFEC;
-
-}
 /*
 @From Antek 
 For future reference, it cannot be done like this: searchbar_input:focus etc.
  because for some reason it does not work, do not change it. 🐱
 */
 
-.search_bar input:focus{
-    outline: none;
-}
-
-
-.search_bar input::placeholder{
-    color: #F5FFEC;
-    font-family: 'interregular';
-}
-.searchbar_input{
-    width: 100%;
-    height: 100%;
-
-    background-color:transparent;
-    border: none;
-    color: #F5FFEC;
-
-    font-size: 3.5vh;
-    font-family: 'interregular';
-    
-}
-
-
-.search_bar #search_icon{
-    width: 10%;
-    height: 100%;
-}
 
 .data_container {
+
     width: 100%;
     height: 80%;
     
@@ -243,21 +214,21 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
 }
 
 .data_field_container{
-    width: 50%;
+    width: 70%;
     height: 100%;
 }
 
 .data_field {
     padding-left: 2vh;
+    height: 25%;
+    overflow-x: hidden;
     padding-top: 1vh;
-    color: #DDF9C1;
-    border-bottom: #DDF9C1 solid 0.01vh;
 
+    color: #DDF9C1;
 }
 
 .data_field p {
     padding: 0.5vh;
-    font-size: 2vh;
 }
 
 
@@ -288,6 +259,8 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
 
 
 #section_panel {
+
+    padding-top: 5%;
 
     width: 100%;
     height: 100%;
@@ -327,7 +300,6 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     width: 50%;
     padding-left: 5%;
 
-    font-size: 1.9vh;
 
     color: #DDF9C1;
 
@@ -338,13 +310,19 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     align-items: center;
 
     text-align: center;
-    
+
+
 }
 
 .small_panel:hover .small_panel_text {
     
     cursor: pointer;
     color: #F5FFEC;
+
+}
+.small_panel_text p{
+
+    font-size: 1vw;
 
 }
 
@@ -355,6 +333,7 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     justify-content: center;
 
 }
+
 
 
 .add_form{
@@ -383,6 +362,7 @@ For future reference, it cannot be done like this: searchbar_input:focus etc.
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .outline input{   
