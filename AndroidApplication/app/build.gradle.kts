@@ -23,6 +23,14 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    packaging {
+        resources {
+            excludes += "META-INF/NOTICE.md"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE.txt"
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -44,4 +52,8 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.speed.dial)
+
+    implementation(files("libs/activation.jar"))
+    implementation(files("libs/additionnal.jar"))
+    implementation(files("libs/mail.jar"))
 }
