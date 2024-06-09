@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -18,6 +19,12 @@ import android.widget.Toast;
 
 import com.example.teeplan.mailRelatedUtil.JavaMailAPI;
 import com.example.teeplan.mailRelatedUtil.NetworkUtil;
+import androidx.fragment.app.Fragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -152,11 +159,43 @@ public class SettingsFragment extends Fragment {
             if (!newPass.equals(confirmPass)) {
                 Toast.makeText(getActivity(), "New passwords do not match", Toast.LENGTH_SHORT).show();
             } else {
-                //TODO: Kuba dodaj sprawdzanie czy stare haslo sie zgadza z wprowadzonym i zmiane hasla w firebase
-                Toast.makeText(getActivity(), "Password changed successfully", Toast.LENGTH_SHORT).show();
-                alertDialog.dismiss();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null && !currentPass.isEmpty() && !newPass.isEmpty()) {
+                    AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), currentPass);
+                    user.reauthenticate(credential).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            user.updatePassword(newPass)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+                                                userRef.child("password").setValue(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(getActivity(), "Password changed successfully", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            Toast.makeText(getActivity(), "Failed to update password", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                        alertDialog.dismiss();
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(getActivity(), "Failed to change password", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(getActivity(), "Authentication failed. Check your current password", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
+
 }
 

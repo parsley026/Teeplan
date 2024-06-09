@@ -19,8 +19,6 @@ function App() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [search, setSearch] = useState('');
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -38,9 +36,6 @@ function App() {
         setEmail(event.target.value);
     };
 
-    const handleSearchChange = (event) => {
-        setSearch(event.target.value);
-    };
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -68,12 +63,6 @@ function App() {
         setEvents(events);
         setMiddlePanel(
             <div id="section_panel">
-                <div className="action_panel">
-                    <div className="search_bar">
-                        <input className="searchbar_input" type="text" name="search" placeholder="search" value={search} onChange={handleSearchChange} />
-                        <div className="icon" id="search_icon"></div>
-                    </div>
-                </div>
                 <div className="data_container">
                     {events.map((event, index) => (
                         <div className="information_container" key={index}>
@@ -95,12 +84,6 @@ function App() {
         setCoupons(coupons);
         setMiddlePanel(
             <div id="section_panel">
-                <div className="action_panel">
-                    <div className="search_bar">
-                        <input className="searchbar_input" placeholder='search'></input>
-                        <div className="icon" id="search_icon"></div>
-                    </div>
-                </div>
                 <div className="data_container">
                     {coupons.map((coupon, index) => (
                         <div className="information_container" key={index}>
@@ -122,12 +105,6 @@ function App() {
         setUsers(users);
         setMiddlePanel(
             <div id="section_panel">
-                <div className="action_panel">
-                    <div className="search_bar">
-                        <input className="searchbar_input" placeholder='search'></input>
-                        <div className="icon" id="search_icon"></div>
-                    </div>
-                </div>
                 <div className="data_container">
                     {users.map((user, index) => (
                         <div className="information_container" key={index}>
@@ -232,14 +209,14 @@ function App() {
     const showChooseMenuEvents = () => {
         setMiddlePanel(
             <div className="add_search_menu">
-                <div className="text_panel">EVENTS</div>
+                <div className="text_panel"><p>EVENTS</p></div>
                 <div className="choose_menu">
                     <div className="small_panel" onClick={showOptionsEvents}>
-                        <div className="small_panel_text">SEARCH</div>
+                        <div className="small_panel_text"><p>DATABASE</p></div>
                         <div className="icon" id="search_icon"></div>
                     </div>
                     <div className="small_panel" onClick={changePageToAddEventPage}>
-                        <div className="small_panel_text">ADD</div>
+                        <div className="small_panel_text"><p>ADD</p></div>
                         <div className="icon" id="add_icon"></div>
                     </div>
                 </div>
@@ -255,14 +232,14 @@ function App() {
     const showChooseMenuCoupon = () => {
         setMiddlePanel(
             <div className="add_search_menu">
-                <div className="text_panel">COUPONS</div>
+                <div className="text_panel"><p>COUPONS</p></div>
                 <div className="choose_menu">
                     <div className="small_panel" onClick={showOptionsCoupon}>
-                        <div className="small_panel_text">SEARCH</div>
+                        <div className="small_panel_text"><p>DATABASE</p></div>
                         <div className="icon" id="search_icon"></div>
                     </div>
                     <div className="small_panel" onClick={changePageToAddCouponPage}  >
-                        <div className="small_panel_text" >ADD</div>
+                        <div className="small_panel_text" ><p>ADD</p></div>
                         <div className="icon" id="add_icon"></div>
                     </div>
                 </div>
@@ -276,12 +253,6 @@ function App() {
         setEventIn(false);
         setMiddlePanel(
             <div id="section_panel">
-                <div className="action_panel">
-                    <div className="search_bar">
-                        <input className="searchbar_input" type="text" name="search" placeholder="search" value={search} onChange={handleSearchChange} />
-                        <div className="icon" id="search_icon"></div>
-                    </div>
-                </div>
                 <div className="data_container">
                     {events.map((event, index) => (
                         <div className="information_container" key={index}>
@@ -302,12 +273,6 @@ function App() {
         setCouponIn(false)
         setMiddlePanel(
             <div id="section_panel">
-                <div className="action_panel">
-                    <div className="search_bar">
-                        <input className="searchbar_input" placeholder='search'></input>
-                        <div className="icon" id="search_icon"></div>
-                    </div>
-                </div>
                 <div className="data_container">
                     {coupons.map((coupon, index) => (
                         <div className="information_container" key={index}>
@@ -327,12 +292,6 @@ function App() {
     const showOptionsUsers = () => {
         setMiddlePanel(
             <div id="section_panel">
-                <div className="action_panel">
-                    <div className="search_bar">
-                        <input className="searchbar_input" placeholder='search'></input>
-                        <div className="icon" id="search_icon"></div>
-                    </div>
-                </div>
                 <div className="data_container">
                     {users.map((user, index) => (
                         <div className="information_container" key={index}>
@@ -391,7 +350,7 @@ function App() {
 
     const fetchUsers = async () => {
         try {
-            const fetchedUsers = await getUsersFromDatabase(search);
+            const fetchedUsers = await getUsersFromDatabase();
             setUsers(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -404,7 +363,7 @@ function App() {
 
     const fetchCoupons = async () => {
         try {
-            const fetchedUsers = await getCouponsFromDatabase(search);
+            const fetchedUsers = await getCouponsFromDatabase();
             setCoupons(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
@@ -417,7 +376,7 @@ function App() {
 
     const fetchEvents = async () => {
         try {
-            const fetchedUsers = await getEventsFromDatabase(search);
+            const fetchedUsers = await getEventsFromDatabase();
             setEvents(fetchedUsers);
         } catch (error) {
             const errorCode = error.code;
