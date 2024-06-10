@@ -56,7 +56,7 @@
                 android:text="Description"
                 android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@+id/couponName"
-                android:layout_below="@id/frameButton"
+                android:layout_below="@id/couponName"
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"/>
