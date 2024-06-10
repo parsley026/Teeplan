@@ -3,86 +3,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:id="@+id/main"
     tools:context=".LoginActivity">
-    <TextView
-        android:id="@+id/settingsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/colorWhite"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="50dp"
-        android:textSize="32sp"
-        android:text="settings"/>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="360dp"
-        android:layout_marginStart="20dp"
-        android:layout_height="2dp"
-        android:background="@color/colorWhite"
-        android:layout_below="@id/settingsText"
-        android:layout_marginVertical="10dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/accountText"
-        style="@style/AppEntryTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="logged in as:"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/view"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp" />
-    <TextView
-        android:id="@+id/accountInfoName"
-        style="@style/AppEntryTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
-        android:layout_below="@id/accountText"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp" />
-    <TextView
-        android:id="@+id/accountInfoEmail"
-        style="@style/AppEntryTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
-        android:layout_below="@id/accountInfoName"
-        android:layout_marginStart="20dp"/>
-    <Button
-        android:id="@+id/buttonChangePass"
-        style="@style/AppButtonStyle"
-        android:layout_width="330dp"
-        android:layout_height="50dp"
-        android:text="change password"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginVertical="220dp"/>
-    <Button
-        android:id="@+id/buttonSignOut"
-        style="@style/AppButtonStyle"
-        android:layout_width="330dp"
-        android:layout_height="50dp"
-        android:text="log out"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginVertical="150dp"/>
-    <Button
-        android:id="@+id/buttonReport"
-        style="@style/AppButtonStyleRed"
-        android:layout_width="330dp"
-        android:layout_height="50dp"
-        android:text="report a bug"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginVertical="50dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/settingsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="50dp"
+                android:textSize="32sp"
+                android:text="settings"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="2dp"
+                android:background="@color/colorWhite"
+                android:layout_below="@id/settingsText"
+                android:layout_marginVertical="10dp"/>
+
+            <TextView
+                android:id="@+id/accountText"
+                style="@style/AppEntryTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="logged in as:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/view"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/accountInfoName"
+                style="@style/AppEntryTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_below="@id/accountText"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/accountInfoEmail"
+                style="@style/AppEntryTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_below="@id/accountInfoName"
+                android:layout_marginStart="20dp"/>
+
+            <Button
+                android:id="@+id/buttonChangePass"
+                style="@style/AppButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="35dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="240dp"
+                android:text="change password"
+                android:layout_marginBottom="30dp"
+                android:layout_below="@id/accountInfoName"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/buttonSignOut"
+                style="@style/AppButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="35dp"
+                android:layout_height="50dp"
+                android:text="log out"
+                android:layout_marginBottom="50dp"
+                android:layout_below="@id/buttonChangePass"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/buttonReport"
+                style="@style/AppButtonStyleRed"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="35dp"
+                android:layout_height="50dp"
+                android:text="report a bug"
+                android:layout_below="@id/buttonSignOut"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
